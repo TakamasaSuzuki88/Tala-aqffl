@@ -1,0 +1,21 @@
+{
+  "name": "mandala-3d-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "まるいそら - 3D Mandala Multi-Artist Portfolio",
+  "author": "Takamasa Suzuki",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build required'",
+    "preview": "npx serve .",
+    "start": "npx serve -p 3000",
+    "deploy": "vercel --prod"
+  },
+  "devDependencies": {
+    "serve": "^14.2.0",
+    "vercel": "^32.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
