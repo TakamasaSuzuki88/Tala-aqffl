@@ -1,6 +1,10 @@
 // 3D Mandala Menu Implementation
 // Author: まるいそら (鈴木貴雅)
 
+// Check if Three.js is loaded
+console.log('Three.js loaded:', typeof THREE !== 'undefined');
+console.log('GSAP loaded:', typeof gsap !== 'undefined');
+
 // Global variables
 let scene, camera, renderer;
 let sections = [];
@@ -24,57 +28,73 @@ const sectionData = [
 
 // Initialize Three.js
 function init() {
-    // Scene setup
-    scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0xAA8F23, 5, 20);
+    console.log('Initializing 3D scene...');
     
-    // Camera setup
-    camera = new THREE.PerspectiveCamera(
-        75,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000
-    );
-    camera.position.set(0, 0, 4.5);
-    camera.lookAt(0, 0, 0);
+    // Check if Three.js is available
+    if (typeof THREE === 'undefined') {
+        console.error('Three.js is not loaded!');
+        return;
+    }
     
-    // Renderer setup
-    renderer = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.VSMShadowMap; // Softer shadows with blur
-    renderer.shadowMap.autoUpdate = true;
-    renderer.shadowMap.needsUpdate = true;
+    try {
+        // Scene setup
+        scene = new THREE.Scene();
+        scene.fog = new THREE.Fog(0xAA8F23, 5, 20);
     
-    // Add renderer to DOM
-    const container = document.getElementById('canvas-container');
-    container.appendChild(renderer.domElement);
+        // Camera setup
+        camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        camera.position.set(0, 0, 4.5);
+        camera.lookAt(0, 0, 0);
+        
+        // Renderer setup
+        renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Softer shadows
+        renderer.shadowMap.autoUpdate = true;
+        renderer.shadowMap.needsUpdate = true;
+        
+        // Add renderer to DOM
+        const container = document.getElementById('canvas-container');
+        container.appendChild(renderer.domElement);
+        
+        // Raycaster for mouse interaction
+        raycaster = new THREE.Raycaster();
+        mouse = new THREE.Vector2();
+        
+        // Lights setup
+        setupLights();
+        
+        // Create sections
+        createSections();
+        
+        // Add particles for atmosphere
+        createParticles();
+        
+        // Event listeners
+        setupEventListeners();
     
-    // Raycaster for mouse interaction
-    raycaster = new THREE.Raycaster();
-    mouse = new THREE.Vector2();
-    
-    // Lights setup
-    setupLights();
-    
-    // Create sections
-    createSections();
-    
-    // Add particles for atmosphere
-    createParticles();
-    
-    // Event listeners
-    setupEventListeners();
-    
-    // Hide loading screen
-    hideLoadingScreen();
-    
-    // Start animation loop
-    animate();
+        // Hide loading screen
+        hideLoadingScreen();
+        
+        // Start animation loop
+        animate();
+        
+        console.log('3D scene initialized successfully!');
+    } catch (error) {
+        console.error('Error initializing 3D scene:', error);
+        // Fallback: hide loading screen even on error
+        hideLoadingScreen();
+    }
 }
 
 // Setup lighting - Vincent Gallo style minimal lighting
@@ -95,8 +115,6 @@ function setupLights() {
     directionalLight.shadow.camera.right = 10;
     directionalLight.shadow.camera.top = 10;
     directionalLight.shadow.camera.bottom = -10;
-    directionalLight.shadow.radius = 4; // Blur radius
-    directionalLight.shadow.blurSamples = 25; // Blur samples
     scene.add(directionalLight);
     
     // Subtle spotlight on center with soft shadows
@@ -108,8 +126,6 @@ function setupLights() {
     spotLight.castShadow = true;
     spotLight.shadow.mapSize.width = 2048;
     spotLight.shadow.mapSize.height = 2048;
-    spotLight.shadow.radius = 3;
-    spotLight.shadow.blurSamples = 20;
     scene.add(spotLight);
     scene.add(spotLight.target);
 }
@@ -179,7 +195,7 @@ function createSections() {
         map: shadowTexture,
         transparent: true,
         depthWrite: false,
-        blending: THREE.MultiplyBlending
+        blending: THREE.NormalBlending
     });
     const gradientPlane = new THREE.Mesh(gradientGeometry, gradientMaterial);
     gradientPlane.rotation.x = -Math.PI / 2;
