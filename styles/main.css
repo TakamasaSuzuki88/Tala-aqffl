@@ -10,7 +10,7 @@ html, body {
     height: 100%;
     overflow: hidden;
     font-family: 'Noto Serif JP', serif;
-    background: #AA8F23; /* Custom gold-brown background */
+    background: #AA8F23 url('../background.jpg') center center / cover no-repeat fixed;
 }
 
 /* Loading Screen */
@@ -63,6 +63,7 @@ html, body {
     width: 100%;
     height: 100%;
     z-index: 1;
+    background: transparent;
 }
 
 /* UI Overlay */
@@ -241,7 +242,7 @@ html, body {
 
 /* Cursor Enhancement */
 body {
-    cursor: crosshair;
+    cursor: default;
 }
 
 /* Performance Optimization */
@@ -251,4 +252,86 @@ body {
 
 .animating {
     will-change: transform, opacity;
+}
+
+/* Image Viewer Modal */
+.image-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+}
+
+.image-viewer.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.viewer-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#viewer-image {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.viewer-info {
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+}
+
+#viewer-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: #FFD700;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+#viewer-description {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+}
+
+.close-btn {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
 }

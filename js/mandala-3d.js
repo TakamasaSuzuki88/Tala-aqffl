@@ -14,27 +14,33 @@ let mouseX = 0, mouseY = 0;
 let targetMouseX = 0, targetMouseY = 0;
 
 // Section data - Keypad style 3x3 grid (tight spacing)
+// Button mapping: 1→01.jpg, 2→02.jpg, 3→03.jpg, 4→04.jpg, 5→05.jpg, 6→06.jpg, 7→07.jpg, 8→08.jpg, 9→09.jpg
 const sectionData = [
-    { id: 'music', number: '1', name: '音楽', description: '音の宇宙、リズムの曼荼羅', position: { x: -1.05, y: 1.05, z: 0 }, color: 0xFAF0E6 },
-    { id: 'video', number: '2', name: '映像', description: '動く光、時間の芸術', position: { x: 0, y: 1.05, z: 0 }, color: 0xFAF0E6 },
-    { id: 'painting', number: '3', name: '絵画', description: '色彩の瞑想、形の詩', position: { x: 1.05, y: 1.05, z: 0 }, color: 0xFAF0E6 },
-    { id: 'photo', number: '4', name: '写真', description: '瞬間の永遠、光の記憶', position: { x: -1.05, y: 0, z: 0 }, color: 0xFAF0E6 },
-    { id: 'philosophy', number: '5', name: '思想', description: '魂の中心、存在の核', position: { x: 0, y: 0, z: 0 }, color: 0xFAF0E6 },
-    { id: 'words', number: '6', name: '言葉', description: '意識の結晶、思考の形', position: { x: 1.05, y: 0, z: 0 }, color: 0xFAF0E6 },
-    { id: 'monetize', number: '7', name: 'マネタイズ', description: '価値の創造、豊かさの循環', position: { x: -1.05, y: -1.05, z: 0 }, color: 0xFAF0E6 },
-    { id: 'game', number: '8', name: 'ゲーム', description: '遊びの哲学、インタラクティブアート', position: { x: 0, y: -1.05, z: 0 }, color: 0xFAF0E6 },
-    { id: 'links', number: '9', name: 'リンク集', description: '繋がりの網、共鳴の場', position: { x: 1.05, y: -1.05, z: 0 }, color: 0xFAF0E6 }
+    { id: 'music', number: '1', name: '音楽', description: '音の宇宙、リズムの曼荼羅', position: { x: -1.05, y: 1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/01.jpg', href: '/music' },
+    { id: 'video', number: '2', name: '映像', description: '動く光、時間の芸術', position: { x: 0, y: 1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/02.jpg', href: '/movie' },
+    { id: 'painting', number: '3', name: '絵画', description: '色彩の瞑想、形の詩', position: { x: 1.05, y: 1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/03.jpg', href: '/painting' },
+    { id: 'photo', number: '4', name: '写真', description: '瞬間の永遠、光の記憶', position: { x: -1.05, y: 0, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/04.jpg', href: '/photo' },
+    { id: 'philosophy', number: '5', name: '思想', description: '魂の中心、存在の核', position: { x: 0, y: 0, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/05.jpg', href: '/idea' },
+    { id: 'words', number: '6', name: '言葉', description: '意識の結晶、思考の形', position: { x: 1.05, y: 0, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/06.jpg', href: '/words' },
+    { id: 'monetize', number: '7', name: 'マネタイズ', description: '価値の創造、豊かさの循環', position: { x: -1.05, y: -1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/07.jpg', href: '/money' },
+    { id: 'game', number: '8', name: 'ゲーム', description: '遊びの哲学、インタラクティブアート', position: { x: 0, y: -1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/08.jpg', href: '/game' },
+    { id: 'links', number: '9', name: 'リンク集', description: '繋がりの網、共鳴の場', position: { x: 1.05, y: -1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/09.jpg', href: '/links' }
 ];
 
 // Initialize Three.js
 function init() {
     console.log('Initializing 3D scene...');
+    console.log('Three.js version:', THREE.REVISION);
     
     // Check if Three.js is available
     if (typeof THREE === 'undefined') {
         console.error('Three.js is not loaded!');
         return;
     }
+    
+    // Test texture loading capability
+    const testLoader = new THREE.TextureLoader();
+    console.log('TextureLoader available:', testLoader !== undefined);
     
     try {
         // Scene setup
@@ -148,73 +154,88 @@ function createSections() {
     basePlate.receiveShadow = true;
     gridGroup.add(basePlate);
     
-    // Create shadow plane far beneath the grid for depth
-    const shadowGeometry = new THREE.PlaneGeometry(8, 8);
-    const shadowMaterial = new THREE.ShadowMaterial({
-        opacity: 0.25,
-        color: 0x624211, // Dark brown shadow color
-        transparent: true
-    });
-    const shadowPlane = new THREE.Mesh(shadowGeometry, shadowMaterial);
-    shadowPlane.rotation.x = -Math.PI / 2;
-    shadowPlane.position.y = -5; // Much lower for 3D depth effect
-    shadowPlane.receiveShadow = true;
-    scene.add(shadowPlane);
-    
-    // Create multiple blur layers for soft shadow effect
-    for (let i = 0; i < 3; i++) {
-        const blurGeometry = new THREE.PlaneGeometry(5 + i * 1.5, 5 + i * 1.5);
-        const blurMaterial = new THREE.MeshBasicMaterial({
-            color: 0x624211,
-            transparent: true,
-            opacity: 0.08 - i * 0.02,
-            side: THREE.DoubleSide,
-            depthWrite: false
-        });
-        const blurPlane = new THREE.Mesh(blurGeometry, blurMaterial);
-        blurPlane.rotation.x = -Math.PI / 2;
-        blurPlane.position.y = -4.5 + i * 0.1; // Layered for blur effect
-        scene.add(blurPlane);
-    }
-    
-    // Add radial gradient shadow for more realism
+    // Simple blur effect shadow beneath the menu
     const canvas = document.createElement('canvas');
     canvas.width = 512;
     canvas.height = 512;
     const ctx = canvas.getContext('2d');
-    const gradient = ctx.createRadialGradient(256, 256, 0, 256, 256, 256);
-    gradient.addColorStop(0, 'rgba(98, 66, 17, 0.4)');
-    gradient.addColorStop(0.5, 'rgba(98, 66, 17, 0.2)');
-    gradient.addColorStop(1, 'rgba(98, 66, 17, 0)');
+    
+    // Create visible radial gradient for shadow - dark chocolate color
+    const gradient = ctx.createRadialGradient(256, 256, 0, 256, 256, 200);
+    gradient.addColorStop(0, 'rgba(75, 45, 30, 0.5)'); // Dark chocolate center
+    gradient.addColorStop(0.5, 'rgba(75, 45, 30, 0.25)'); // Mid chocolate
+    gradient.addColorStop(1, 'rgba(75, 45, 30, 0)'); // Transparent edge
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 512, 512);
     
     const shadowTexture = new THREE.CanvasTexture(canvas);
-    const gradientGeometry = new THREE.PlaneGeometry(6, 6);
-    const gradientMaterial = new THREE.MeshBasicMaterial({
+    const shadowGeometry = new THREE.PlaneGeometry(4, 4);
+    const shadowMaterial = new THREE.MeshBasicMaterial({
         map: shadowTexture,
         transparent: true,
+        opacity: 0.8,
         depthWrite: false,
         blending: THREE.NormalBlending
     });
-    const gradientPlane = new THREE.Mesh(gradientGeometry, gradientMaterial);
-    gradientPlane.rotation.x = -Math.PI / 2;
-    gradientPlane.position.y = -4;
-    scene.add(gradientPlane);
+    const shadowPlane = new THREE.Mesh(shadowGeometry, shadowMaterial);
+    shadowPlane.rotation.x = -Math.PI / 2;
+    shadowPlane.position.y = -2.5; // Much lower, beneath the menu
+    scene.add(shadowPlane);
     
     sectionData.forEach((data, index) => {
         // Create geometry for keypad button
         const geometry = new THREE.BoxGeometry(0.95, 0.95, 0.08);
         
-        // Create matte material (reduced reflection) - Light beige
+        // Create material with white/light beige color
         const material = new THREE.MeshLambertMaterial({
-            color: data.color,
-            emissive: data.id === 'philosophy' ? 0xDC143C : data.color,
+            color: 0xFAF0E6, // Light beige/white color for all buttons
+            emissive: data.id === 'philosophy' ? 0xDC143C : 0x000000,
             emissiveIntensity: data.id === 'philosophy' ? 0.05 : 0.01
         });
         
         // Create mesh
         const mesh = new THREE.Mesh(geometry, material);
+        
+        // Debug log to confirm we're attempting to load
+        console.log(`Attempting to load texture for button ${data.number}: ${data.imageFile}`);
+        
+        // Load and apply texture
+        if (data.imageFile) {
+            const textureLoader = new THREE.TextureLoader();
+            
+            // Load texture and apply with 20% opacity
+            textureLoader.load(
+                data.imageFile,
+                // Success callback
+                (texture) => {
+                    console.log(`✓ Texture loaded successfully for button ${data.number}`);
+                    
+                    // Create a plane mesh for the texture overlay
+                    const overlayGeometry = new THREE.PlaneGeometry(0.94, 0.94);
+                    const overlayMaterial = new THREE.MeshBasicMaterial({
+                        map: texture,
+                        transparent: true,
+                        opacity: 0.2, // 20% opacity for texture
+                        side: THREE.FrontSide
+                    });
+                    const overlayMesh = new THREE.Mesh(overlayGeometry, overlayMaterial);
+                    overlayMesh.position.z = 0.041; // Slightly in front of button
+                    mesh.add(overlayMesh);
+                    
+                    // Force a render update
+                    if (renderer) {
+                        renderer.render(scene, camera);
+                    }
+                },
+                // Progress callback
+                undefined,
+                // Error callback
+                (error) => {
+                    console.error(`✗ Failed to load texture for button ${data.number}:`, error);
+                    // Keep white color on error
+                }
+            );
+        }
         mesh.position.set(data.position.x, data.position.y, data.position.z);
         mesh.userData = data;
         mesh.castShadow = true;
@@ -237,28 +258,36 @@ function createSections() {
         canvas.width = 256;
         canvas.height = 256;
         
-        // Draw text on canvas - Black text
-        context.fillStyle = 'rgba(0, 0, 0, 0)';
-        context.fillRect(0, 0, 256, 256);
-        context.font = 'bold 72px Arial';
-        context.fillStyle = '#000000'; // Black numbers
+        // Clear canvas
+        context.clearRect(0, 0, 256, 256);
+        
+        // Draw text on canvas - larger number
+        context.font = 'bold 90px Arial';
+        context.fillStyle = '#1B2D5A'; // Navy blue text
+        context.strokeStyle = '#FFFFFF'; // White outline
+        context.lineWidth = 4;
         context.textAlign = 'center';
         context.textBaseline = 'middle';
-        context.fillText(data.number, 128, 80);
+        context.strokeText(data.number, 128, 90);
+        context.fillText(data.number, 128, 90);
         
-        context.font = 'bold 32px Noto Serif JP';
-        context.fillStyle = '#000000'; // Black Japanese text
-        context.fillText(data.name, 128, 160);
+        // Draw larger name text
+        context.font = 'bold 36px Noto Serif JP';
+        context.fillStyle = '#1B2D5A'; // Navy blue text
+        context.strokeStyle = '#FFFFFF'; // White outline
+        context.lineWidth = 4;
+        context.strokeText(data.name, 128, 170);
+        context.fillText(data.name, 128, 170);
         
         // Create sprite from canvas
-        const texture = new THREE.CanvasTexture(canvas);
+        const textTexture = new THREE.CanvasTexture(canvas);
         const spriteMaterial = new THREE.SpriteMaterial({ 
-            map: texture,
+            map: textTexture,
             transparent: true
         });
         const sprite = new THREE.Sprite(spriteMaterial);
-        sprite.scale.set(0.8, 0.8, 1);
-        sprite.position.z = 0.1;
+        sprite.scale.set(1.0, 1.0, 1); // Larger scale for better visibility
+        sprite.position.z = 0.05; // In front of button and texture
         mesh.add(sprite);
         
         // Special treatment for center "Philosophy" section
@@ -433,14 +462,24 @@ function animateHoverOut(mesh) {
     mesh.material.emissiveIntensity = mesh.userData.id === 'philosophy' ? 0.05 : 0.01;
 }
 
-// Click handler
+// Click handler - Prepare for page navigation
 function onClick(event) {
     if (hoveredSection) {
-        console.log('Clicked section:', hoveredSection.userData.name);
-        // Here we would navigate to the section page
-        // For now, just log it
+        const sectionData = hoveredSection.userData;
+        console.log('Clicked section:', sectionData.name);
+        console.log('Target URL:', sectionData.href);
+        
+        // TODO: Navigate to the section's dedicated page
+        // For now, just log the intended navigation
+        console.log(`準備中: ${sectionData.name}ページへ移動 (${sectionData.href})`);
+        
+        // Future implementation:
+        // window.location.href = sectionData.href;
+        // or use router for SPA navigation
     }
 }
+
+// Image viewer functions removed - will navigate to dedicated pages instead
 
 // Window resize handler
 function onWindowResize() {
@@ -469,8 +508,32 @@ function animate() {
     mouseX += (targetMouseX - mouseX) * 0.05;
     mouseY += (targetMouseY - mouseY) * 0.05;
     
-    camera.position.x = mouseX * 0.3;
-    camera.position.y = mouseY * 0.3;
+    // Asymmetric limits for all directions to prevent text cutoff
+    const maxMovementLeft = 0.1;   // Reduced for left side
+    const maxMovementRight = 0.08; // Much less for right side (prevents right text cutoff)
+    const maxMovementUp = 0.08;    // Less upward movement (prevents top text cutoff)
+    const maxMovementDown = 0.1;   // Reduced for bottom (prevents bottom text cutoff)
+    
+    // Apply different limits for left/right movement
+    const targetX = mouseX * 0.3;
+    if (targetX > 0) {
+        // Moving right - apply stricter limit
+        camera.position.x = Math.min(maxMovementRight, targetX);
+    } else {
+        // Moving left - slightly less strict
+        camera.position.x = Math.max(-maxMovementLeft, targetX);
+    }
+    
+    // Apply different limits for up/down movement
+    const targetY = mouseY * 0.3;
+    if (targetY > 0) {
+        // Moving up - apply stricter limit
+        camera.position.y = Math.min(maxMovementUp, targetY);
+    } else {
+        // Moving down - also limited to prevent bottom cutoff
+        camera.position.y = Math.max(-maxMovementDown, targetY);
+    }
+    
     camera.lookAt(0, 0, 0);
     
     // Unified grid floating animation
