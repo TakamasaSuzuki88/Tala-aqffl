@@ -30,11 +30,23 @@ const sectionData = [
 // Initialize Three.js
 function init() {
     console.log('Initializing 3D scene...');
-    console.log('Three.js version:', THREE.REVISION);
+    console.log('Three.js version:', typeof THREE !== 'undefined' ? THREE.REVISION : 'NOT LOADED');
+    
+    // Update loading text for debugging
+    const loadingText = document.querySelector('.loading-text');
+    if (loadingText) {
+        loadingText.textContent = 'Initializing...';
+    }
     
     // Check if Three.js is available
     if (typeof THREE === 'undefined') {
         console.error('Three.js is not loaded!');
+        if (loadingText) {
+            loadingText.textContent = 'Error: Three.js not loaded';
+        }
+        setTimeout(() => {
+            hideLoadingScreen();
+        }, 2000);
         return;
     }
     
@@ -89,6 +101,11 @@ function init() {
         // Event listeners
         setupEventListeners();
     
+        // Update loading text before hiding
+        if (loadingText) {
+            loadingText.textContent = 'Ready!';
+        }
+        
         // Hide loading screen
         hideLoadingScreen();
         
@@ -98,8 +115,14 @@ function init() {
         console.log('3D scene initialized successfully!');
     } catch (error) {
         console.error('Error initializing 3D scene:', error);
-        // Fallback: hide loading screen even on error
-        hideLoadingScreen();
+        // Update loading text with error
+        if (loadingText) {
+            loadingText.textContent = 'Error: ' + error.message;
+        }
+        // Fallback: hide loading screen even on error after a delay
+        setTimeout(() => {
+            hideLoadingScreen();
+        }, 2000);
     }
 }
 
@@ -564,8 +587,17 @@ function animate() {
 }
 
 // Initialize when DOM is ready
+console.log('Document ready state:', document.readyState);
+console.log('Script loaded, waiting for initialization...');
+
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    console.log('Waiting for DOMContentLoaded...');
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('DOMContentLoaded fired, initializing...');
+        init();
+    });
 } else {
-    init();
+    console.log('DOM already loaded, initializing immediately...');
+    // Small delay to ensure libraries are fully loaded
+    setTimeout(init, 100);
 }
