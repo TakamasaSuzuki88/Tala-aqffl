@@ -12,11 +12,16 @@ let raycaster, mouse;
 let hoveredSection = null;
 let mouseX = 0, mouseY = 0;
 let targetMouseX = 0, targetMouseY = 0;
+let transitionOverlay = null;
+
+const navigationTargets = {
+    music: 'music-page.html'
+};
 
 // Section data - Keypad style 3x3 grid (tight spacing)
 // Button mapping: 1→01.jpg, 2→02.jpg, 3→03.jpg, 4→04.jpg, 5→05.jpg, 6→06.jpg, 7→07.jpg, 8→08.jpg, 9→09.jpg
 const sectionData = [
-    { id: 'music', number: '1', name: '音楽', description: '音の宇宙、リズムの曼荼羅', position: { x: -1.05, y: 1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/01.jpg', href: '/music' },
+    { id: 'music', number: '1', name: '音楽', description: '音の宇宙、リズムの曼荼羅', position: { x: -1.05, y: 1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/01.jpg', href: 'music-page.html' },
     { id: 'video', number: '2', name: '映像', description: '動く光、時間の芸術', position: { x: 0, y: 1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/02.jpg', href: '/movie' },
     { id: 'painting', number: '3', name: '絵画', description: '色彩の瞑想、形の詩', position: { x: 1.05, y: 1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/03.jpg', href: '/painting' },
     { id: 'photo', number: '4', name: '写真', description: '瞬間の永遠、光の記憶', position: { x: -1.05, y: 0, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/04.jpg', href: '/photo' },
@@ -31,7 +36,7 @@ const sectionData = [
 function init() {
     console.log('Initializing 3D scene...');
     console.log('Three.js version:', typeof THREE !== 'undefined' ? THREE.REVISION : 'NOT LOADED');
-    
+
     // Update loading text for debugging
     const loadingText = document.querySelector('.loading-text');
     if (loadingText) {
@@ -53,7 +58,9 @@ function init() {
     // Test texture loading capability
     const testLoader = new THREE.TextureLoader();
     console.log('TextureLoader available:', testLoader !== undefined);
-    
+
+    transitionOverlay = document.getElementById('transition-overlay');
+
     try {
         // Scene setup
         scene = new THREE.Scene();
@@ -106,8 +113,17 @@ function init() {
             loadingText.textContent = 'Ready!';
         }
         
+        // Cache transition overlay and reveal page
+        transitionOverlay = document.getElementById('transition-overlay');
+
         // Hide loading screen
         hideLoadingScreen();
+
+        if (transitionOverlay) {
+            setTimeout(() => {
+                transitionOverlay.classList.remove('active');
+            }, 250);
+        }
         
         // Start animation loop
         animate();
@@ -123,6 +139,12 @@ function init() {
         setTimeout(() => {
             hideLoadingScreen();
         }, 2000);
+
+        if (transitionOverlay) {
+            setTimeout(() => {
+                transitionOverlay.classList.remove('active');
+            }, 300);
+        }
     }
 }
 
@@ -491,14 +513,14 @@ function onClick(event) {
         const sectionData = hoveredSection.userData;
         console.log('Clicked section:', sectionData.name);
         console.log('Target URL:', sectionData.href);
-        
-        // TODO: Navigate to the section's dedicated page
-        // For now, just log the intended navigation
-        console.log(`準備中: ${sectionData.name}ページへ移動 (${sectionData.href})`);
-        
-        // Future implementation:
-        // window.location.href = sectionData.href;
-        // or use router for SPA navigation
+
+        const targetUrl = navigationTargets[sectionData.id] || sectionData.href;
+
+        if (targetUrl) {
+            startPageTransition(targetUrl);
+        } else {
+            console.log('No navigation target defined for this section.');
+        }
     }
 }
 
@@ -509,6 +531,18 @@ function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function startPageTransition(targetUrl) {
+    console.log('Starting page transition to:', targetUrl);
+    if (transitionOverlay) {
+        transitionOverlay.classList.add('active');
+        setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 500);
+    } else {
+        window.location.href = targetUrl;
+    }
 }
 
 // Hide loading screen
