@@ -512,11 +512,14 @@ function onClick(event) {
     if (hoveredSection) {
         const sectionData = hoveredSection.userData;
         console.log('Clicked section:', sectionData.name);
+        console.log('Section ID:', sectionData.id);
         console.log('Target URL:', sectionData.href);
 
-        const targetUrl = navigationTargets[sectionData.id] || sectionData.href;
+        // Use href directly from the section data
+        const targetUrl = sectionData.href;
 
         if (targetUrl) {
+            console.log('Navigating to:', targetUrl);
             startPageTransition(targetUrl);
         } else {
             console.log('No navigation target defined for this section.');
