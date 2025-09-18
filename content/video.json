@@ -1,0 +1,65 @@
+{
+  "lead": "映像はすべてYouTubeに集約。代表映像で世界観を掴み、下段に全動画とチャンネルを一覧化します。",
+  "featured": [
+    {
+      "title": "荒野酒場",
+      "url": "https://www.youtube.com/watch?v=FY4w8TIegrM",
+      "tag": "MV",
+      "year": "2023",
+      "note": "荒野にぽつんと灯る酒場で交差する心象を描いたMV。アコースティックギターと語りがじわりと胸に染み込む代表作。",
+      "thumbOverride": ""
+    },
+    {
+      "title": "会話 (Acoustic ver.)",
+      "url": "https://www.youtube.com/watch?v=TVYbvLd-_QI",
+      "tag": "Live",
+      "year": "2022",
+      "note": "静かな対話として進むアコースティックセッション。息遣いや指先のニュアンスが繊細に伝わるライブ収録。",
+      "thumbOverride": ""
+    },
+    {
+      "title": "アスティスの旅 - Excerpt",
+      "url": "",
+      "tag": "Excerpt",
+      "year": "",
+      "note": "",
+      "thumbOverride": ""
+    },
+    {
+      "title": "制作舞台裏 - Documentary",
+      "url": "",
+      "tag": "Behind",
+      "year": "",
+      "note": "",
+      "thumbOverride": ""
+    }
+  ],
+  "items": [
+    {
+      "title": "Z (Live at カナデアンコーヒーハウス)",
+      "url": "",
+      "tag": "Live",
+      "year": "",
+      "note": "",
+      "thumbOverride": ""
+    },
+    {
+      "title": "Short ティーザー",
+      "url": "",
+      "tag": "Short",
+      "year": "",
+      "note": "",
+      "thumbOverride": ""
+    }
+  ],
+  "channels": [
+    {
+      "label": "公式チャンネル",
+      "url": "https://www.youtube.com/@suzukitakamasa2"
+    },
+    {
+      "label": "プレイリスト（MV）",
+      "url": "https://www.youtube.com/playlist?list="
+    }
+  ]
+}

@@ -1,4 +1,8 @@
 /* Reset and Base Styles */
+:root {
+    --text-ink: #0A0C12;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -11,6 +15,13 @@ html, body {
     overflow: hidden;
     font-family: 'Noto Serif JP', serif;
     background: #AA8F23 url('../background.jpg') center center / cover no-repeat fixed;
+    color: var(--text-ink);
+}
+
+h1, h2, h3, h4, h5, h6,
+p, a, li, button,
+.btn, .chip, .label {
+    color: var(--text-ink);
 }
 
 /* Loading Screen */
@@ -44,7 +55,7 @@ html, body {
     background: #0A0C12;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.6s ease;
+    transition: opacity 0.2s ease;
     z-index: 9998;
 }
 

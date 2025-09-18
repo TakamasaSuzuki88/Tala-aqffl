@@ -31,7 +31,6 @@
             color: var(--text-light);
             line-height: 1.7;
             background-image:
-                linear-gradient(45deg, rgba(58, 74, 107, 0.65), rgba(138, 31, 31, 0.35)),
                 url('img/music_back.jpg');
             background-size: cover, cover;
             background-position: center, center;
@@ -45,7 +44,7 @@
             background: #0A0C12;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.6s ease;
+            transition: opacity 0.2s ease;
             z-index: 9999;
         }
 
@@ -196,6 +195,7 @@
             border-radius: 0;
             border: 1px solid rgba(255,255,255,0.3);
             backdrop-filter: blur(5px);
+            cursor: pointer;
         }
 
         .quick-nav:hover .home-label {
@@ -617,7 +617,7 @@
         }
 
         .footer-link {
-            color: var(--accent-gold);
+            color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
             transition: all 0.3s ease;
             position: relative;
@@ -628,7 +628,7 @@
 
         .footer-link::before {
             content: '▌';
-            color: rgba(255,255,255,0.65);
+            color: rgba(255,255,255,0.55);
             font-size: 0.8rem;
             letter-spacing: 0.1em;
         }
@@ -729,17 +729,17 @@
         <!-- Home Mandala Navigation -->
         <div class="quick-nav">
             <div class="home-mandala" data-target="index.html" title="ホーム - 曼荼羅の中心へ戻る">
-                <div class="mandala-cell"><span>1<br>音楽</span></div>
-                <div class="mandala-cell"><span>2<br>映像</span></div>
-                <div class="mandala-cell"><span>3<br>絵画</span></div>
-                <div class="mandala-cell"><span>4<br>写真</span></div>
-                <div class="mandala-cell center"><span>思想</span></div>
-                <div class="mandala-cell"><span>6<br>言葉</span></div>
-                <div class="mandala-cell"><span>7<br>マネタイズ</span></div>
-                <div class="mandala-cell"><span>8<br>ゲーム</span></div>
-                <div class="mandala-cell"><span>9<br>リンク集</span></div>
+                <div class="mandala-cell" data-link="1"><span>1<br>音楽</span></div>
+                <div class="mandala-cell" data-link="2"><span>2<br>映像</span></div>
+                <div class="mandala-cell" data-link="3"><span>3<br>絵画</span></div>
+                <div class="mandala-cell" data-link="4"><span>4<br>写真</span></div>
+                <div class="mandala-cell center" data-link="5"><span>思想</span></div>
+                <div class="mandala-cell" data-link="6"><span>6<br>言葉</span></div>
+                <div class="mandala-cell" data-link="7"><span>7<br>マネタイズ</span></div>
+                <div class="mandala-cell" data-link="8"><span>8<br>ゲーム</span></div>
+                <div class="mandala-cell" data-link="9"><span>9<br>リンク集</span></div>
             </div>
-            <div class="home-label">曼荼羅ホーム</div>
+            <div class="home-label" data-target="index.html" role="button" tabindex="0">曼荼羅ホーム</div>
         </div>
 
         <div class="content">
@@ -766,7 +766,7 @@
                 <h2>代表作品</h2>
                 <div class="featured-works">
                     <div class="featured-card">
-                        <div class="featured-cover" style="background-image: url('img/632x632bb.webp');">アスティスの旅</div>
+                        <div class="featured-cover" style="background-image: url('img/IMG_6564.jpg');"></div>
                         <div class="featured-info">
                             <div class="featured-tags">
                                 <span class="featured-tag">Album</span>
@@ -774,13 +774,13 @@
                                 <span class="featured-tag">Cinematic</span>
                             </div>
                             <h3>アルバム「アスティスの旅」</h3>
-                            <p>作者のファーストアルバム。1曲ごとが1章となり、全体でひとつの物語を描くシネマティックな組曲。約7年に及ぶ制作を経て、聴く長編小説のように“旅”の起伏を紡ぐ。</p>
-                            <p class="featured-note">#3「老人の死」は TikTok で 10 億回再生を突破し、作品全体を象徴する楽曲として世界中で聴かれている。</p>
+                            <p>作者自身のファーストアルバム、制作期間約7年。1曲ごとが1章となり、全体でひとつの物語を成すシネマティクアルバム。愛しみと喪失、静かな再生を描いた「聴く長編小説」と呼べる作品。</p>
+                            <p class="featured-note">#3「老人の死」は TikTok で 10 億回再生。2025年に作者自身の手によって映画化される。</p>
                         </div>
                     </div>
 
                     <div class="featured-card">
-                        <div class="featured-cover" style="background-image: url('img/632x632bb (1).webp');">空色のラブソング</div>
+                        <div class="featured-cover" style="background-image: url('img/632x632bb (1).webp');"></div>
                         <div class="featured-info">
                             <div class="featured-tags">
                                 <span class="featured-tag">Album</span>
@@ -788,12 +788,13 @@
                                 <span class="featured-tag">Cinematic</span>
                             </div>
                             <h3>アルバム「空色のラブソング」</h3>
-                            <p>空の色に似た恋を綴るセカンドアルバム。まっすぐで少し不器用だったふたりの出会いから別れまでが、瑞々しいメロディで進行する。淡く透き通るラブソングの連なりが、日常の記憶を呼び起こす。</p>
+                            <p>ファーストアルバムに引き続きシネマティックアルバムで構成されたセカンドアルバム。空の色に似た恋が始まった。まっすぐで少し不器用で、でも本気だったふたりが何気ない日常の中で手をつなぎ、笑い合い、すれ違い、やがて別れを知る。</p>
+                            <p>それでも空を見るたびに、あの瞬間が胸に戻ってくる──そんな淡く透き通るラブソング。</p>
                         </div>
                     </div>
 
                     <div class="featured-card">
-                        <div class="featured-cover" style="background-image: url('img/632x632bb (2).webp');">リアブレカリア</div>
+                        <div class="featured-cover" style="background-image: url('img/632x632bb (2).webp');"></div>
                         <div class="featured-info">
                             <div class="featured-tags">
                                 <span class="featured-tag">Album</span>
@@ -801,12 +802,12 @@
                                 <span class="featured-tag">Cinematic</span>
                             </div>
                             <h3>アルバム「リアブレカリア」</h3>
-                            <p>サードアルバムもシネマティックな構成で展開。「言葉を持たない祈り」として紡がれる旋律は、記憶を運ぶ舟のように静かに進む。リズムや余白までもが対話となり、聴く者の内側に物語を呼び覚ます。</p>
+                            <p>ファースト、セカンドアルバムに引き続きシネマティックアルバムで構成されたサードアルバム。すべての音が「言葉を持たない祈り」であり、「記憶を運ぶ舟」。旋律は語り、リズムは問い、空白は沈黙の対話となる。</p>
                         </div>
                     </div>
 
                     <div class="featured-card">
-                        <div class="featured-cover" style="background-image: url('img/632x632bb (3).webp');">Live in ヨシタケキャスト「Z」</div>
+                        <div class="featured-cover" style="background-image: url('img/632x632bb (3).webp');"></div>
                         <div class="featured-info">
                             <div class="featured-tags">
                                 <span class="featured-tag">Live</span>
@@ -814,7 +815,7 @@
                                 <span class="featured-tag">Instrumental</span>
                             </div>
                             <h3>Live in ヨシタケキャスト「Z」<br><small>(Live at カナデアンコーヒーハウス 2025)</small></h3>
-                            <p>2025年2月22日のフェス音源を収録。ファーストシングル「Z」を中心に、歩みを重ねてきた作者のライブバンド感と息遣いを閉じ込めたセット。細くとも音楽を手放さなかった軌跡が刻まれている。</p>
+                            <p>2025年2月22日に行われたフェスの音源。ファーストシングル「Z」の曲を中心に組まれたライブ感のあるセットリスト。細くも音楽をやめずに続けてきた作者の足跡が伺えるライブアルバム。</p>
                         </div>
                     </div>
                 </div>
@@ -822,7 +823,7 @@
 
             <!-- Featured MV -->
             <section class="section">
-                <h2>推しMV</h2>
+                <h2>MV</h2>
                 <div class="mv-grid">
                     <div class="mv-card">
                         <div class="mv-thumbnail" style="background-image: url('https://img.youtube.com/vi/FY4w8TIegrM/hqdefault.jpg');"></div>
@@ -938,7 +939,7 @@
                     </div>
                 </div>
                 <div class="footer-copyright">
-                    <p>© 2024 鈴木貴雅 (まるいそら) - All Rights Reserved</p>
+                    <p>©︎2008鈴木たかまさ(まるいそら音楽出版)-All Rights Reserved</p>
                 </div>
             </footer>
         </div>
@@ -946,6 +947,29 @@
 
     <script>
         const transitionOverlay = document.getElementById('transition-overlay');
+        const navigationMap = {
+            '1': '/music-page.html',
+            '2': '/movie/index.html',
+            '3': '/painting/index.html',
+            '4': '/photo/index.html',
+            '5': '/idea/index.html',
+            '6': '/words/index.html',
+            '7': '/money/index.html',
+            '8': '/game/index.html',
+            '9': '/links/index.html'
+        };
+
+        function navigateWithFade(targetHref) {
+            const targetUrl = new URL(targetHref, window.location.origin);
+            if (transitionOverlay) {
+                transitionOverlay.classList.add('active');
+                setTimeout(() => {
+                    window.location.href = targetUrl.href;
+                }, 200);
+            } else {
+                window.location.href = targetUrl.href;
+            }
+        }
 
         window.addEventListener('load', () => {
             if (transitionOverlay) {
@@ -976,15 +1000,55 @@
                 });
             });
 
-            homeMandala.addEventListener('click', () => {
+            homeMandala.addEventListener('click', (event) => {
+                if (event.target && event.target.closest('.mandala-cell[data-link]')) {
+                    return;
+                }
                 const target = homeMandala.getAttribute('data-target') || 'index.html';
-                if (transitionOverlay) {
-                    transitionOverlay.classList.add('active');
-                    setTimeout(() => {
-                        window.location.href = target;
-                    }, 400);
-                } else {
-                    window.location.href = target;
+                navigateWithFade(target);
+            });
+        }
+
+        const navCells = document.querySelectorAll('.mandala-cell[data-link]');
+        navCells.forEach((cell) => {
+            cell.setAttribute('role', 'button');
+            cell.setAttribute('tabindex', '0');
+
+            const handleNavigation = () => {
+                const key = cell.getAttribute('data-link');
+                const destination = key ? navigationMap[key] : null;
+                if (!destination) {
+                    return;
+                }
+                navigateWithFade(destination);
+            };
+
+            cell.addEventListener('click', (event) => {
+                event.stopPropagation();
+                handleNavigation();
+            });
+
+            cell.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    handleNavigation();
+                }
+            });
+        });
+
+        const homeLabel = document.querySelector('.home-label');
+        if (homeLabel) {
+            homeLabel.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const target = homeLabel.getAttribute('data-target') || 'index.html';
+                navigateWithFade(target);
+            });
+
+            homeLabel.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    const target = homeLabel.getAttribute('data-target') || 'index.html';
+                    navigateWithFade(target);
                 }
             });
         }
@@ -992,8 +1056,6 @@
         // Smooth scroll and mandala effects
         document.addEventListener('DOMContentLoaded', () => {
             window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const background = document.body;
                 if (homeMandala) {
                     homeMandala.style.transform = 'translateY(-3px)';
                 }
