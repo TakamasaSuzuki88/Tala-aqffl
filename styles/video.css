@@ -10,6 +10,7 @@
     margin-left: auto;
     margin-right: auto;
     opacity: 0.85;
+    white-space: pre-line;
 }
 
 .section {
@@ -140,6 +141,22 @@
     text-underline-offset: 4px;
 }
 
+.video-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    font-size: 0.9rem;
+}
+
+.video-links a {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.video-links span {
+    opacity: 0.7;
+}
+
 .filter-chips {
     display: flex;
     flex-wrap: wrap;
@@ -176,25 +193,4 @@
 
 .video-grid .video-card-surface {
     padding: 28px;
-}
-
-.channel-list {
-    list-style: none;
-    display: grid;
-    gap: 12px;
-    font-size: 1rem;
-}
-
-[data-channel-list] {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.channel-list a {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-}
-
-.channel-list span {
-    margin-right: 8px;
 }

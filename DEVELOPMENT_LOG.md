@@ -210,3 +210,27 @@ Sending message to client: undefined  // ← 問題の箇所
 ---
 *作成日: 2024年9月9日*  
 *最終更新: 2025年9月16日 13:55 JST*
+
+### 2025年9月21日 - 映像/音楽ページ刷新とナビゲーション統一
+
+#### ✅ 実施内容
+- 映像ページ上部に映画予告編とプレイリスト紹介セクションを追加し、プレイリストにもサムネイルを表示
+- 音楽ページから旧MVセクションを撤去し、ライブビデオ用プレイリストカードを新設
+- `content/video.json` を再編成し、予告編・MV・プレイリスト・公式チャンネルを `items` に集約、タグ体系を刷新
+- `js/video-page.js` のフィルタータグを `Trailer/Playlist/Channel` などに更新し、チャンネル専用セクションを廃止
+- 映画ページのチャンネルセクション削除とスタイル調整（`styles/video.css` に `white-space: pre-line` と `.video-links` 追加）
+- 公式チャンネルカードにサムネイルを設定し、`Preview coming soon` 表示を解消
+- サイト全体で「マネタイズ」を「販売」に改称し、ナビゲーション・ドキュメント・3Dメニューを同期
+
+#### 🔧 変更ファイル（主なもの）
+- `movie/index.html`, `music-page.html`
+- `content/video.json`, `js/video-page.js`, `styles/video.css`
+- `components/MandalaGrid.tsx`, `js/mandala-3d.js`
+- `README.md`, `PRD.md`, `PRD_DRAFT_NOTES.md`, `test-images.html`
+
+#### 🧪 確認メモ
+- ブラウザで `movie/index.html` を再読み込みし、新タグのフィルターとカード表示を検証
+- `music-page.html` のライブビデオカードとマン ドラナビの表記を確認
+
+---
+*最終更新: 2025年9月21日 18:34 JST*

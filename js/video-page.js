@@ -1,6 +1,6 @@
 import { ytIdFromUrl, ytThumb } from './youtube.js';
 
-const TAGS = ['All', 'Short', 'Excerpt', 'MV', 'Behind', 'Live'];
+const TAGS = ['All', 'Trailer', 'Playlist', 'MV', 'Live', 'Channel', 'Coming Soon'];
 const state = {
     items: [],
     currentTag: 'All'
@@ -28,8 +28,6 @@ async function initVideoPage() {
     state.items = items;
     renderFilters();
     renderGrid();
-
-    renderChannels(data.channels || []);
 }
 
 function renderHero(leadText) {
@@ -112,41 +110,6 @@ function renderGrid() {
         const card = createVideoCard(item);
         container.appendChild(card);
     });
-}
-
-function renderChannels(channels) {
-    const container = document.querySelector('[data-channel-list]');
-    if (!container) return;
-
-    container.innerHTML = '';
-    container.classList.add('video-card-surface');
-    if (!channels.length) {
-        const message = document.createElement('p');
-        message.className = 'video-note';
-        message.textContent = '公式チャンネル情報は現在準備中です。';
-        container.appendChild(message);
-        return;
-    }
-
-    const list = document.createElement('ul');
-    list.className = 'channel-list';
-
-    channels.forEach((channel) => {
-        const item = document.createElement('li');
-        const label = document.createElement('span');
-        label.textContent = '▌';
-        const link = document.createElement('a');
-        link.href = channel.url;
-        link.target = '_blank';
-        link.rel = 'noopener';
-        link.textContent = channel.label;
-
-        item.appendChild(label);
-        item.appendChild(link);
-        list.appendChild(item);
-    });
-
-    container.appendChild(list);
 }
 
 function createVideoCard(item) {

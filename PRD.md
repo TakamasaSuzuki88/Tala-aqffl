@@ -490,7 +490,7 @@ The Mandala 3D Website represents a unique opportunity to democratize geometric 
    - 代表映像、全映像グリッド、チャンネル一覧を半透明カード＋和紙調フレームで再構成。
    - YouTubeサムネ自動取得・タグフィルタ・チャンネルリスト表示を `content/video.json` と `js/video-page.js` でデータ駆動化。
 2. **サブページ共通要素整備**
-   - 絵画/写真/思想/言葉/マネタイズ/ゲーム/リンク集ページを一括作成。
+   - 絵画/写真/思想/言葉/販売/ゲーム/リンク集ページを一括作成。
    - 背景画像を各ページ固有に指定しつつ、ヒーローのタイポグラフィとフェード演出を統一。
    - フッターを音楽ページと同じ3カラム構成・カラートーンへ統一。
 3. **ナビゲーション改善**
@@ -508,3 +508,19 @@ The Mandala 3D Website represents a unique opportunity to democratize geometric 
 - **追加ファイル**: `content/video.json`, `styles/video.css`, `js/video-page.js`, 各セクション用HTML。
 - **主要変更**: `music-page.html`, `js/subpage.js`, `styles/subpage.css`, `js/mandala-3d.js`。
 - **確認事項**: 200msフェード遷移、フィルタ機能、フッターのカラー/幅が全ページで統一されているか。
+
+### 2025年9月21日 - 映像データ統合とナビゲーション改称
+
+#### ✅ 完了済みタスク
+1. **映像ページの静的＋動的構成統合**
+   - 上部に映画予告編と各プレイリストの紹介カードを追加。
+   - `content/video.json` の `featured`/`items` を再編成し、予告編・MV・プレイリスト・公式チャンネルを集約。
+   - `js/video-page.js` のタグを `Trailer/Playlist/Channel` などに更新し、チャンネル専用セクションを廃止。
+2. **音楽ページ再調整**
+   - 旧「MV」セクションを削除し、ライブビデオプレイリストのみを紹介するカードへ刷新。
+3. **グローバル表記更新**
+   - サイト内の「マネタイズ」を「販売」に改称（ナビゲーション、3Dメニュー、ドキュメント、テストページ）。
+
+#### 🔍 残課題
+- `Channel` タグのカード向けに専用サムネイルを用意する（現在は予告編サムネイルを流用）。
+- `content/video.json` に今後追加する動画のタグ運用ルールをREADMEか運用メモに追記する。

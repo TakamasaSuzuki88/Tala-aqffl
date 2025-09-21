@@ -1,12 +1,54 @@
 {
-  "lead": "映像はすべてYouTubeに集約。代表映像で世界観を掴み、下段に全動画とチャンネルを一覧化します。",
+  "lead": "映像はすべてYouTubeに集約。代表映像で世界観を掴み、\n下段に全動画とチャンネルを一覧化します。",
   "featured": [
+    {
+      "title": "映画『アスティスの旅』予告編",
+      "url": "https://youtu.be/XHgiszhCfJU",
+      "tag": "Trailer",
+      "year": "2025",
+      "note": "短編映画「アスティスの旅」の予告編。日本語字幕ver.を公開中、英語字幕ver.はComing Soon。",
+      "thumbOverride": ""
+    },
+    {
+      "title": "実験ビデオ",
+      "url": "https://youtube.com/playlist?list=PLDOzaZxFAdjpflWhD9FLLpJ3AS_v7e-4q",
+      "tag": "Playlist",
+      "year": "",
+      "note": "制作過程で生まれたアイデアやテスト映像をまとめたプレイリスト。",
+      "thumbOverride": "https://img.youtube.com/vi/FY4w8TIegrM/hqdefault.jpg"
+    },
+    {
+      "title": "ライブビデオ",
+      "url": "https://youtube.com/playlist?list=PLDOzaZxFAdjruP60mFkCw1VNY1Duz3huN",
+      "tag": "Playlist",
+      "year": "",
+      "note": "ライブパフォーマンスの記録を年代順にアーカイブ。",
+      "thumbOverride": "https://img.youtube.com/vi/TVYbvLd-_QI/hqdefault.jpg"
+    },
+    {
+      "title": "ミュージックビデオ",
+      "url": "",
+      "tag": "Coming Soon",
+      "year": "",
+      "note": "現在制作進行中です。公開をお待ちください。",
+      "thumbOverride": ""
+    }
+  ],
+  "items": [
+    {
+      "title": "映画『アスティスの旅』予告編",
+      "url": "https://youtu.be/XHgiszhCfJU",
+      "tag": "Trailer",
+      "year": "2025",
+      "note": "短編映画「アスティスの旅」の予告編。日本語字幕ver.を公開中。",
+      "thumbOverride": ""
+    },
     {
       "title": "荒野酒場",
       "url": "https://www.youtube.com/watch?v=FY4w8TIegrM",
       "tag": "MV",
       "year": "2023",
-      "note": "荒野にぽつんと灯る酒場で交差する心象を描いたMV。アコースティックギターと語りがじわりと胸に染み込む代表作。",
+      "note": "荒野に灯る酒場で交差する心象を描いたMV。アコースティックギターと語りが胸に染み込む代表作。",
       "thumbOverride": ""
     },
     {
@@ -14,52 +56,32 @@
       "url": "https://www.youtube.com/watch?v=TVYbvLd-_QI",
       "tag": "Live",
       "year": "2022",
-      "note": "静かな対話として進むアコースティックセッション。息遣いや指先のニュアンスが繊細に伝わるライブ収録。",
+      "note": "静かな対話として進むアコースティックセッション。息遣いと指先のニュアンスが繊細に伝わるライブ収録映像。",
       "thumbOverride": ""
     },
     {
-      "title": "アスティスの旅 - Excerpt",
-      "url": "",
-      "tag": "Excerpt",
+      "title": "実験ビデオ プレイリスト",
+      "url": "https://youtube.com/playlist?list=PLDOzaZxFAdjpflWhD9FLLpJ3AS_v7e-4q",
+      "tag": "Playlist",
       "year": "",
-      "note": "",
-      "thumbOverride": ""
+      "note": "制作過程で生まれたアイデアやテスト映像をまとめたプレイリスト。",
+      "thumbOverride": "https://img.youtube.com/vi/FY4w8TIegrM/hqdefault.jpg"
     },
     {
-      "title": "制作舞台裏 - Documentary",
-      "url": "",
-      "tag": "Behind",
+      "title": "ライブビデオ プレイリスト",
+      "url": "https://youtube.com/playlist?list=PLDOzaZxFAdjruP60mFkCw1VNY1Duz3huN",
+      "tag": "Playlist",
       "year": "",
-      "note": "",
-      "thumbOverride": ""
-    }
-  ],
-  "items": [
-    {
-      "title": "Z (Live at カナデアンコーヒーハウス)",
-      "url": "",
-      "tag": "Live",
-      "year": "",
-      "note": "",
-      "thumbOverride": ""
+      "note": "ライブパフォーマンスの記録を年代順にアーカイブ。",
+      "thumbOverride": "https://img.youtube.com/vi/TVYbvLd-_QI/hqdefault.jpg"
     },
     {
-      "title": "Short ティーザー",
-      "url": "",
-      "tag": "Short",
+      "title": "公式YouTubeチャンネル",
+      "url": "https://www.youtube.com/@suzukitakamasa2",
+      "tag": "Channel",
       "year": "",
-      "note": "",
-      "thumbOverride": ""
-    }
-  ],
-  "channels": [
-    {
-      "label": "公式チャンネル",
-      "url": "https://www.youtube.com/@suzukitakamasa2"
-    },
-    {
-      "label": "プレイリスト（MV）",
-      "url": "https://www.youtube.com/playlist?list="
+      "note": "最新映像とプレイリストを集約した公式チャンネル。",
+      "thumbOverride": "https://img.youtube.com/vi/XHgiszhCfJU/hqdefault.jpg"
     }
   ]
 }

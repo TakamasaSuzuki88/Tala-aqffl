@@ -21,7 +21,7 @@ const defaults: MandalaItem[] = [
   { img: '04.jpg', label: '写真',       href: '/photo',   opacity: 0.24 }, // 4 → 04.jpg
   { img: '05.jpg', label: '思想',       href: '/idea',    opacity: 0.24 }, // 5 → 05.jpg
   { img: '06.jpg', label: '言葉',       href: '/words',   opacity: 0.24 }, // 6 → 06.jpg
-  { img: '07.jpg', label: 'マネタイズ', href: '/money',   opacity: 0.20 }, // 7 → 07.jpg（密）
+  { img: '07.jpg', label: '販売', href: '/money',   opacity: 0.20 }, // 7 → 07.jpg（密）
   { img: '08.jpg', label: 'ゲーム',     href: '/game',    opacity: 0.24 }, // 8 → 08.jpg
   { img: '09.jpg', label: 'リンク集',   href: '/links',   opacity: 0.20 }, // 9 → 09.jpg（密）
 ];

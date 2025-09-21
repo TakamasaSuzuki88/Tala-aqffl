@@ -27,7 +27,7 @@ const sectionData = [
     { id: 'photo', number: '4', name: '写真', description: '瞬間の永遠、光の記憶', position: { x: -1.05, y: 0, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/04.jpg', href: '/photo' },
     { id: 'philosophy', number: '5', name: '思想', description: '魂の中心、存在の核', position: { x: 0, y: 0, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/05.jpg', href: '/idea' },
     { id: 'words', number: '6', name: '言葉', description: '意識の結晶、思考の形', position: { x: 1.05, y: 0, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/06.jpg', href: '/words' },
-    { id: 'monetize', number: '7', name: 'マネタイズ', description: '価値の創造、豊かさの循環', position: { x: -1.05, y: -1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/07.jpg', href: '/money' },
+    { id: 'monetize', number: '7', name: '販売', description: '価値の創造、豊かさの循環', position: { x: -1.05, y: -1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/07.jpg', href: '/money' },
     { id: 'game', number: '8', name: 'ゲーム', description: '遊びの哲学、インタラクティブアート', position: { x: 0, y: -1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/08.jpg', href: '/game' },
     { id: 'links', number: '9', name: 'リンク集', description: '繋がりの網、共鳴の場', position: { x: 1.05, y: -1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/09.jpg', href: '/links' }
 ];
