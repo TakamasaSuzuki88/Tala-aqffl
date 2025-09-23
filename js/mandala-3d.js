@@ -73,7 +73,7 @@ function init() {
             0.1,
             1000
         );
-        camera.position.set(0, 0, 4.5);
+        camera.position.set(0, 0, 4.75);
         camera.lookAt(0, 0, 0);
         
         // Renderer setup
@@ -206,19 +206,20 @@ function createSections() {
     const ctx = canvas.getContext('2d');
     
     // Create visible radial gradient for shadow - dark chocolate color
-    const gradient = ctx.createRadialGradient(256, 256, 0, 256, 256, 200);
-    gradient.addColorStop(0, 'rgba(75, 45, 30, 0.5)'); // Dark chocolate center
-    gradient.addColorStop(0.5, 'rgba(75, 45, 30, 0.25)'); // Mid chocolate
-    gradient.addColorStop(1, 'rgba(75, 45, 30, 0)'); // Transparent edge
+    const gradient = ctx.createRadialGradient(256, 256, 40, 256, 256, 215);
+    gradient.addColorStop(0, 'rgba(75, 45, 30, 0.65)'); // Weightier center tone
+    gradient.addColorStop(0.48, 'rgba(75, 45, 30, 0.32)');
+    gradient.addColorStop(0.75, 'rgba(75, 45, 30, 0.12)'); // Controlled falloff
+    gradient.addColorStop(1, 'rgba(75, 45, 30, 0)');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 512, 512);
     
     const shadowTexture = new THREE.CanvasTexture(canvas);
-    const shadowGeometry = new THREE.PlaneGeometry(4, 4);
+    const shadowGeometry = new THREE.PlaneGeometry(4.8, 4.8);
     const shadowMaterial = new THREE.MeshBasicMaterial({
         map: shadowTexture,
         transparent: true,
-        opacity: 0.8,
+        opacity: 0.92,
         depthWrite: false,
         blending: THREE.NormalBlending
     });
@@ -306,23 +307,16 @@ function createSections() {
         // Clear canvas
         context.clearRect(0, 0, 256, 256);
         
-        // Draw text on canvas - larger number
-        context.font = 'bold 90px Arial';
+        // Draw primary label (without numeric prefix)
+        const labelFontSize = data.name.length >= 4 ? 58 : data.name.length === 3 ? 64 : 76;
+        context.font = `bold ${labelFontSize}px "Noto Serif JP", serif`;
         context.fillStyle = '#1B2D5A'; // Navy blue text
         context.strokeStyle = '#FFFFFF'; // White outline
         context.lineWidth = 4;
         context.textAlign = 'center';
         context.textBaseline = 'middle';
-        context.strokeText(data.number, 128, 90);
-        context.fillText(data.number, 128, 90);
-        
-        // Draw larger name text
-        context.font = 'bold 36px Noto Serif JP';
-        context.fillStyle = '#1B2D5A'; // Navy blue text
-        context.strokeStyle = '#FFFFFF'; // White outline
-        context.lineWidth = 4;
-        context.strokeText(data.name, 128, 170);
-        context.fillText(data.name, 128, 170);
+        context.strokeText(data.name, 128, 135);
+        context.fillText(data.name, 128, 135);
         
         // Create sprite from canvas
         const textTexture = new THREE.CanvasTexture(canvas);
@@ -355,6 +349,7 @@ function createSections() {
     
     // Store grid group for unified floating
     scene.userData.gridGroup = gridGroup;
+    gridGroup.userData.baseY = 0.05;
 }
 
 // Create particle system for atmosphere (background only)
@@ -569,13 +564,13 @@ function animate() {
     mouseY += (targetMouseY - mouseY) * 0.05;
     
     // Asymmetric limits for all directions to prevent text cutoff
-    const maxMovementLeft = 0.1;   // Reduced for left side
-    const maxMovementRight = 0.08; // Much less for right side (prevents right text cutoff)
-    const maxMovementUp = 0.08;    // Less upward movement (prevents top text cutoff)
-    const maxMovementDown = 0.1;   // Reduced for bottom (prevents bottom text cutoff)
+    const maxMovementLeft = 0.12;
+    const maxMovementRight = 0.05;
+    const maxMovementUp = 0.07;
+    const maxMovementDown = 0.055;
     
     // Apply different limits for left/right movement
-    const targetX = mouseX * 0.3;
+    const targetX = mouseX * 0.26;
     if (targetX > 0) {
         // Moving right - apply stricter limit
         camera.position.x = Math.min(maxMovementRight, targetX);
@@ -585,7 +580,7 @@ function animate() {
     }
     
     // Apply different limits for up/down movement
-    const targetY = mouseY * 0.3;
+    const targetY = mouseY * 0.26;
     if (targetY > 0) {
         // Moving up - apply stricter limit
         camera.position.y = Math.min(maxMovementUp, targetY);
@@ -599,7 +594,8 @@ function animate() {
     // Unified grid floating animation
     if (scene.userData.gridGroup) {
         const floatTime = Date.now() * 0.0008;
-        scene.userData.gridGroup.position.y = Math.sin(floatTime) * 0.05;
+        const baseY = scene.userData.gridGroup.userData.baseY || 0;
+        scene.userData.gridGroup.position.y = baseY + Math.sin(floatTime) * 0.05;
         scene.userData.gridGroup.rotation.y = Math.sin(floatTime * 0.5) * 0.02;
     }
     
