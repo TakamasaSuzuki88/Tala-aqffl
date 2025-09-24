@@ -261,7 +261,7 @@ function createSections() {
                     const overlayMaterial = new THREE.MeshBasicMaterial({
                         map: texture,
                         transparent: true,
-                        opacity: 0.2, // 20% opacity for texture
+                        opacity: 0.4, // Balanced texture visibility
                         side: THREE.FrontSide
                     });
                     const overlayMesh = new THREE.Mesh(overlayGeometry, overlayMaterial);
@@ -308,7 +308,7 @@ function createSections() {
         context.clearRect(0, 0, 256, 256);
         
         // Draw primary label (without numeric prefix)
-        const labelFontSize = data.name.length >= 4 ? 58 : data.name.length === 3 ? 64 : 76;
+        const labelFontSize = data.name.length >= 4 ? 46 : data.name.length === 3 ? 52 : 60;
         context.font = `bold ${labelFontSize}px "Noto Serif JP", serif`;
         context.fillStyle = '#1B2D5A'; // Navy blue text
         context.strokeStyle = '#FFFFFF'; // White outline
@@ -325,7 +325,7 @@ function createSections() {
             transparent: true
         });
         const sprite = new THREE.Sprite(spriteMaterial);
-        sprite.scale.set(1.0, 1.0, 1); // Larger scale for better visibility
+        sprite.scale.set(0.92, 0.92, 1);
         sprite.position.z = 0.05; // In front of button and texture
         mesh.add(sprite);
         

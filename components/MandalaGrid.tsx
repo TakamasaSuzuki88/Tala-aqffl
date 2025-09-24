@@ -27,11 +27,6 @@ const defaults: MandalaItem[] = [
 ];
 
 const MandalaGrid: React.FC<MandalaGridProps> = ({ items = defaults, insetPct = 3.5 }) => {
-  const textStroke: React.CSSProperties = {
-    WebkitTextStroke: '0.8px rgba(255,255,255,0.88)',
-    textShadow: '0 0 2px rgba(255,255,255,0.65), 0 0 4px rgba(0,0,0,0.18)',
-  };
-
   return (
     <div className="mandala-grid-container" style={{ width: 'min(880px, 92vw)', margin: '2rem auto' }}>
       <div style={{ position: 'relative', paddingBottom: '100%' }}>
@@ -101,27 +96,22 @@ const MandalaGrid: React.FC<MandalaGridProps> = ({ items = defaults, insetPct = 
                 }}>
                   <span
                     style={{
-                      ...textStroke,
-                      color: '#1E3A8A',
-                      fontWeight: 'bold',
+                      fontWeight: 800,
                       lineHeight: 1,
                       marginBottom: '0.25rem',
                       fontSize: 'clamp(17px, 2.8vw, 31px)'
                     }}
-                    className="mandala-number"
+                    className="mandala-number text-ink-navy text-stroke text-stroke-fallback"
                   >
                     {num}
                   </span>
                   <span
                     style={{
-                      ...textStroke,
-                      color: '#1E3A8A',
-                      fontWeight: '600',
                       fontSize: 'clamp(12px, 2.0vw, 22px)',
-                      lineHeight: '1.05',
-                      letterSpacing: '-0.02em',
+                      fontWeight: 780,
+                      fontVariationSettings: "'wght' 780"
                     }}
-                    className="mandala-label"
+                    className="mandala-label text-ink-navy font-extrabold tracking-wide leading-tight text-stroke text-stroke-fallback"
                   >
                     {it.label}
                   </span>
@@ -133,6 +123,29 @@ const MandalaGrid: React.FC<MandalaGridProps> = ({ items = defaults, insetPct = 
       </div>
       
       <style jsx>{`
+        .text-ink-navy {
+          color: #1E3A8A;
+        }
+        .font-extrabold {
+          font-weight: 800;
+        }
+        .tracking-wide {
+          letter-spacing: 0.05em;
+        }
+        .leading-tight {
+          line-height: 1.1;
+        }
+        .text-stroke {
+          -webkit-text-stroke: 1.1px rgba(255, 255, 255, 0.85);
+        }
+        .text-stroke-fallback {
+          text-shadow:
+            0 0 0 rgba(255, 255, 255, 0.85),
+            0.02em 0 rgba(255, 255, 255, 0.85),
+            -0.02em 0 rgba(255, 255, 255, 0.85),
+            0 0.02em rgba(255, 255, 255, 0.85),
+            0 -0.02em rgba(255, 255, 255, 0.85);
+        }
         .mandala-item:hover .mandala-number,
         .mandala-item:hover .mandala-label {
           color: #2947A9;
