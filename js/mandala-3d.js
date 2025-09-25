@@ -185,6 +185,7 @@ function setupLights() {
 function createSections() {
     // Create group for entire grid
     const gridGroup = new THREE.Group();
+    const isMobileView = window.innerWidth <= 768;
     
     // Create base plate for unified look - Cherry Red frame
     const plateGeometry = new THREE.BoxGeometry(3.3, 3.3, 0.1);
@@ -303,20 +304,23 @@ function createSections() {
         const context = canvas.getContext('2d');
         canvas.width = 256;
         canvas.height = 256;
-        
+
         // Clear canvas
         context.clearRect(0, 0, 256, 256);
-        
+
         // Draw primary label (without numeric prefix)
-        const labelFontSize = data.name.length >= 4 ? 46 : data.name.length === 3 ? 52 : 60;
+        const baseFontSize = data.name.length >= 4 ? 46 : data.name.length === 3 ? 52 : 60;
+        const fontScale = isMobileView ? 1.2 : 1;
+        const labelFontSize = Math.round(baseFontSize * fontScale);
         context.font = `bold ${labelFontSize}px "Noto Serif JP", serif`;
         context.fillStyle = '#1B2D5A'; // Navy blue text
         context.strokeStyle = '#FFFFFF'; // White outline
-        context.lineWidth = 4;
+        context.lineWidth = isMobileView ? 5 : 4;
         context.textAlign = 'center';
         context.textBaseline = 'middle';
-        context.strokeText(data.name, 128, 135);
-        context.fillText(data.name, 128, 135);
+        const labelCenterY = isMobileView ? 138 : 135;
+        context.strokeText(data.name, 128, labelCenterY);
+        context.fillText(data.name, 128, labelCenterY);
         
         // Create sprite from canvas
         const textTexture = new THREE.CanvasTexture(canvas);
@@ -325,7 +329,8 @@ function createSections() {
             transparent: true
         });
         const sprite = new THREE.Sprite(spriteMaterial);
-        sprite.scale.set(0.92, 0.92, 1);
+        const spriteScale = isMobileView ? 1.08 : 0.92;
+        sprite.scale.set(spriteScale, spriteScale, 1);
         sprite.position.z = 0.05; // In front of button and texture
         mesh.add(sprite);
         

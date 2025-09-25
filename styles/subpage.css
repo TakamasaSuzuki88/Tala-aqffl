@@ -41,7 +41,7 @@ body.page-photo {
 }
 
 body.page-idea {
-    --page-background: url('/img/sco_back.jpg');
+    --page-background: url('../background.jpg');
 }
 
 body.page-words {

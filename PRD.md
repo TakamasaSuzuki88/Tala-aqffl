@@ -537,6 +537,11 @@ The Mandala 3D Website represents a unique opportunity to democratize geometric 
 3. **サブページナビとの質感調整**
    - 音楽ページと共通スタイルで枠線の不透明度を引き下げ（0.6→0.4）、トップメニューと質感を共通化。
    - React版 `MandalaGrid` コンポーネントでもラベルスタイルを更新し、将来のNext移行時に同じ見た目を再現可能に。
+4. **モバイル可読性の最適化**
+   - ビューポート幅768px以下の場合にラベルフォントを約20%拡大し、白縁を太く調整。
+   - スプライト倍率をモバイル時のみ1.08倍へ引き上げ、小画面でもカテゴリ名が判読しやすい表示に。
+5. **思想ページ背景の統一**
+   - `body.page-idea` の背景をトップページと同じ `background.jpg` に変更し、ブランドイメージの一貫性を確保。
 
 #### 📊 影響範囲
 - **変更ファイル**: `js/mandala-3d.js`, `music-page.html`, `styles/subpage.css`, `components/MandalaGrid.tsx`。
