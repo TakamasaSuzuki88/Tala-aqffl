@@ -8,6 +8,7 @@ console.log('GSAP loaded:', typeof gsap !== 'undefined');
 // Global variables
 let scene, camera, renderer;
 let sections = [];
+const labelSprites = [];
 let raycaster, mouse;
 let hoveredSection = null;
 let mouseX = 0, mouseY = 0;
@@ -33,7 +34,7 @@ const sectionData = [
 ];
 
 // Initialize Three.js
-function init() {
+async function init() {
     console.log('Initializing 3D scene...');
     console.log('Three.js version:', typeof THREE !== 'undefined' ? THREE.REVISION : 'NOT LOADED');
 
@@ -99,15 +100,31 @@ function init() {
         // Lights setup
         setupLights();
         
+        // Wait for web fonts to load before rendering canvas text to avoid fallbacks
+        if (document.fonts && document.fonts.ready) {
+            try {
+                await document.fonts.ready;
+                await Promise.race([
+                    document.fonts.load('700 48px "Noto Serif JP"'),
+                    new Promise((resolve) => setTimeout(resolve, 2500))
+                ]);
+            } catch (fontError) {
+                console.warn('Font loading check failed:', fontError);
+            }
+        }
+
         // Create sections
         createSections();
-        
+
         // Add particles for atmosphere
         createParticles();
-        
+
         // Event listeners
         setupEventListeners();
-    
+
+        // Re-render labels once fonts are confirmed
+        scheduleLabelRefresh();
+
         // Update loading text before hiding
         if (loadingText) {
             loadingText.textContent = 'Ready!';
@@ -300,30 +317,7 @@ function createSections() {
         mesh.add(edgeLines);
         
         // Create text sprite for number and name
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        canvas.width = 256;
-        canvas.height = 256;
-
-        // Clear canvas
-        context.clearRect(0, 0, 256, 256);
-
-        // Draw primary label (without numeric prefix)
-        const baseFontSize = data.name.length >= 4 ? 46 : data.name.length === 3 ? 52 : 60;
-        const fontScale = isMobileView ? 1.2 : 1;
-        const labelFontSize = Math.round(baseFontSize * fontScale);
-        context.font = `bold ${labelFontSize}px "Noto Serif JP", serif`;
-        context.fillStyle = '#1B2D5A'; // Navy blue text
-        context.strokeStyle = '#FFFFFF'; // White outline
-        context.lineWidth = isMobileView ? 5 : 4;
-        context.textAlign = 'center';
-        context.textBaseline = 'middle';
-        const labelCenterY = isMobileView ? 138 : 135;
-        context.strokeText(data.name, 128, labelCenterY);
-        context.fillText(data.name, 128, labelCenterY);
-        
-        // Create sprite from canvas
-        const textTexture = new THREE.CanvasTexture(canvas);
+        const textTexture = renderLabelTexture(data.name, isMobileView);
         const spriteMaterial = new THREE.SpriteMaterial({ 
             map: textTexture,
             transparent: true
@@ -333,6 +327,7 @@ function createSections() {
         sprite.scale.set(spriteScale, spriteScale, 1);
         sprite.position.z = 0.05; // In front of button and texture
         mesh.add(sprite);
+        labelSprites.push({ sprite, label: data.name, isMobileView });
         
         // Special treatment for center "Philosophy" section
         if (data.id === 'philosophy') {
@@ -389,6 +384,72 @@ function createParticles() {
     
     // Store for animation
     scene.userData.particles = particles;
+}
+
+function renderLabelTexture(text, isMobileView) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 256;
+    canvas.height = 256;
+    const context = canvas.getContext('2d');
+
+    context.clearRect(0, 0, 256, 256);
+
+    const baseFontSize = text.length >= 4 ? 46 : text.length === 3 ? 52 : 60;
+    const fontScale = isMobileView ? 1.2 : 1;
+    const labelFontSize = Math.round(baseFontSize * fontScale);
+    const fontSpec = `700 ${labelFontSize}px "Noto Serif JP"`;
+    context.font = fontSpec;
+    context.fillStyle = '#040914';
+    context.strokeStyle = '#FFFFFF';
+    context.textAlign = 'center';
+    context.textBaseline = 'middle';
+    context.lineJoin = 'round';
+    context.miterLimit = 2;
+    context.lineWidth = 4;
+    const labelCenterY = isMobileView ? 138 : 135;
+    context.strokeText(text, 128, labelCenterY);
+    context.fillText(text, 128, labelCenterY);
+
+    return new THREE.CanvasTexture(canvas);
+}
+
+function refreshLabelTextures() {
+    labelSprites.forEach(({ sprite, label, isMobileView }) => {
+        const texture = renderLabelTexture(label, isMobileView);
+        if (sprite.material.map) {
+            sprite.material.map.dispose();
+        }
+        sprite.material.map = texture;
+        sprite.material.needsUpdate = true;
+        texture.needsUpdate = true;
+    });
+}
+
+function scheduleLabelRefresh(attempt = 0) {
+    const MAX_ATTEMPTS = 4;
+    const refresh = () => {
+        refreshLabelTextures();
+        if (attempt < MAX_ATTEMPTS && document.fonts && !document.fonts.check('700 48px "Noto Serif JP"')) {
+            setTimeout(() => scheduleLabelRefresh(attempt + 1), 400);
+        }
+    };
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready
+            .then(refresh)
+            .catch(() => {
+                if (attempt < MAX_ATTEMPTS) {
+                    setTimeout(() => scheduleLabelRefresh(attempt + 1), 400);
+                }
+            });
+    } else if (attempt < MAX_ATTEMPTS) {
+        setTimeout(() => {
+            refresh();
+            if (attempt + 1 <= MAX_ATTEMPTS) {
+                scheduleLabelRefresh(attempt + 1);
+            }
+        }, 500);
+    }
 }
 
 // Setup event listeners

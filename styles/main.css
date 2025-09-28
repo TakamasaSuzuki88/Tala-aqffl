@@ -1,6 +1,6 @@
 /* Reset and Base Styles */
 :root {
-    --text-ink: #0A0C12;
+    --text-ink: #04060A;
 }
 
 * {
@@ -168,7 +168,7 @@ p, a, li, button,
 }
 
 .info-panel p {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.92);
     font-size: 0.95rem;
     line-height: 1.6;
 }
@@ -338,7 +338,7 @@ body {
 
 #viewer-description {
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.92);
     line-height: 1.6;
 }
 

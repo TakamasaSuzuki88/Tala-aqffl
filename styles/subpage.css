@@ -1,13 +1,13 @@
 :root {
     --stroke-red: #8A1F1F;
-    --text-light: #E8E6F0;
+    --text-light: #F2F0F8;
     --text-white: #FFFFFF;
     --paper-bg: #3A4A6B;
     --mandala-bg: rgba(255,255,255,0.1);
     --accent-red: #8A1F1F;
     --accent-gold: #B8860B;
     --card-bg: rgba(255,255,255,0.15);
-    --text-ink: #0A0C12;
+    --text-ink: #04060A;
 }
 
 * {
@@ -239,7 +239,7 @@ body.page-links {
 }
 
 .footer-link {
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.92);
     text-decoration: none;
     transition: all 0.3s ease;
     position: relative;
@@ -250,7 +250,7 @@ body.page-links {
 
 .footer-link::before {
     content: '▌';
-    color: rgba(255,255,255,0.55);
+    color: rgba(255,255,255,0.7);
     font-size: 0.8rem;
     letter-spacing: 0.1em;
 }
@@ -278,7 +278,7 @@ body.page-links {
     text-align: center;
     padding-top: 32px;
     border-top: 1px solid var(--stroke-red);
-    opacity: 0.7;
+    opacity: 0.85;
 }
 
 .hero {
@@ -301,6 +301,85 @@ body.page-links {
     margin: 0 auto 24px auto;
     max-width: 640px;
     color: #0A0C12;
+}
+
+.link-section {
+    margin: 0 auto;
+    max-width: 960px;
+    display: grid;
+    gap: 28px;
+}
+
+.link-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.link-card {
+    border: 1px solid rgba(10, 12, 18, 0.18);
+    background: rgba(255, 255, 255, 0.82);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 16px 36px rgba(10, 12, 18, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.link-card:hover,
+.link-card:focus-within {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 40px rgba(10, 12, 18, 0.16);
+}
+
+.link-card h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    color: #0A0C12;
+}
+
+.link-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(10, 12, 18, 0.85);
+    margin-bottom: 16px;
+}
+
+.link-card a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.92rem;
+    letter-spacing: 0.04em;
+    color: #0A0C12;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(10, 12, 18, 0.2);
+    padding-bottom: 4px;
+    transition: border-color 0.2s ease;
+}
+
+.link-card a::after {
+    content: '↗';
+    font-size: 0.85rem;
+}
+
+.link-card a:hover,
+.link-card a:focus-visible {
+    border-color: #0A0C12;
+}
+
+@media (max-width: 768px) {
+    .link-section {
+        gap: 20px;
+    }
+
+    .link-card {
+        padding: 20px;
+    }
+
+    .link-card h3 {
+        font-size: 1.1rem;
+    }
 }
 
 @media (max-width: 768px) {
