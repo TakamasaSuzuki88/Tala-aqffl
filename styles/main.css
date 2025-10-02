@@ -388,7 +388,7 @@ body {
     padding: clamp(48px, 6vw, 72px) clamp(28px, 6vw, 48px);
     background: #050505;
     color: #f3f1ea;
-    border-radius: 30px;
+    border-radius: 0;
     box-shadow: 0 28px 60px rgba(0, 0, 0, 0.35);
 }
 

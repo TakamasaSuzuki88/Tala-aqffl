@@ -141,3 +141,7 @@ vite.config.ts.timestamp-*
 
 # Project specific
 cursor-talk-to-figma-mcp/
+
+# Large image directories
+img/写真/
+img/絵/

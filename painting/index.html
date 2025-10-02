@@ -29,7 +29,38 @@
         <div class="content">
             <section class="hero">
                 <h1>絵画 – PAINTING</h1>
-                <p>色彩の瞑想、形の詩。静けさと躍動が同居するキャンバス作品を紹介します。</p>
+                <p>色彩の瞑想、形の詩。<br>静けさと躍動が同居するキャンバス作品を紹介します。</p>
+            </section>
+
+            <section class="gallery painting-gallery" aria-labelledby="painting-gallery-heading">
+                <div class="gallery-header">
+                    <div>
+                        <h2 id="painting-gallery-heading">キャンバスの呼吸</h2>
+                        <p>タイトルを持つ代表作から<br>静かに佇むアーカイブまで。<br>全作品は番号で索引できるよう整理しました。</p>
+                    </div>
+                    <div class="gallery-stats" aria-live="polite">
+                        <span class="stat" data-stat="featured-count">代表作 0点</span>
+                        <span class="stat" data-stat="total-count">全作品 0点</span>
+                    </div>
+                </div>
+
+                <div class="gallery-tabs" role="tablist" aria-label="絵画ギャラリー表示切り替え">
+                    <button type="button" id="painting-featured-tab" class="gallery-tab active" role="tab" aria-selected="true" aria-controls="painting-featured" data-panel="featured">タイトル作品</button>
+                    <button type="button" id="painting-archive-tab" class="gallery-tab" role="tab" aria-selected="false" aria-controls="painting-archive" data-panel="archive">アーカイブ</button>
+                </div>
+
+                <div class="gallery-panels">
+                    <div id="painting-featured" class="gallery-panel" role="tabpanel" aria-labelledby="painting-featured-tab" data-panel="featured">
+                        <div class="gallery-grid featured-grid" data-gallery="featured"></div>
+                    </div>
+                    <div id="painting-archive" class="gallery-panel hidden" role="tabpanel" aria-labelledby="painting-archive-tab" data-panel="archive" hidden>
+                        <div class="gallery-grid archive-grid" data-gallery="archive"></div>
+                    </div>
+                </div>
+
+                <noscript>
+                    <p class="noscript-message">すべての作品を表示するにはJavaScriptを有効にしてください。</p>
+                </noscript>
             </section>
 
             <footer class="footer">
@@ -65,5 +96,13 @@
     </div>
 
     <script src="../js/subpage.js"></script>
+    <script type="module">
+        import { initPaintingGallery } from '../js/gallery.js';
+
+        initPaintingGallery({
+            dataUrl: '../content/paintings.json',
+            rootSelector: '.painting-gallery'
+        });
+    </script>
 </body>
 </html>
