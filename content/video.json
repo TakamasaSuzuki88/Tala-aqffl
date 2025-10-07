@@ -1,13 +1,21 @@
 {
-  "lead": "映像はすべてYouTubeに集約。代表映像で世界観を掴み、\n下段に全動画とチャンネルを一覧化します。",
+  "lead": "映像はすべてYouTubeに集約。代表映像から本編までを一度に確認できます。",
   "featured": [
     {
       "title": "映画『アスティスの旅』予告編",
       "url": "https://youtu.be/XHgiszhCfJU",
       "tag": "Trailer",
       "year": "2025",
-      "note": "短編映画「アスティスの旅」の予告編。日本語字幕ver.を公開中、英語字幕ver.はComing Soon。",
+      "note": "短編映画「アスティスの旅」の世界観を凝縮した予告編。物語の輪郭と光の演出を先行公開。",
       "thumbOverride": ""
+    },
+    {
+      "title": "映画『アスティスの旅』本編（日本語字幕）",
+      "url": "https://youtu.be/0-vgueJasSc",
+      "tag": "Film",
+      "year": "2025",
+      "note": "日本語字幕版の本編。曼荼羅的な構成で記憶と旅路を織り上げる短編映画のフル尺映像。",
+      "thumbOverride": "https://img.youtube.com/vi/0-vgueJasSc/hqdefault.jpg"
     },
     {
       "title": "実験ビデオ",
@@ -18,20 +26,12 @@
       "thumbOverride": "https://img.youtube.com/vi/FY4w8TIegrM/hqdefault.jpg"
     },
     {
-      "title": "ライブビデオ",
-      "url": "https://youtube.com/playlist?list=PLDOzaZxFAdjruP60mFkCw1VNY1Duz3huN",
+      "title": "ミュージックビデオ",
+      "url": "https://youtube.com/playlist?list=PLDOzaZxFAdjqMFfjGrdkEASrpv0OjwcpS",
       "tag": "Playlist",
       "year": "",
-      "note": "ライブパフォーマンスの記録を年代順にアーカイブ。",
-      "thumbOverride": "https://img.youtube.com/vi/TVYbvLd-_QI/hqdefault.jpg"
-    },
-    {
-      "title": "ミュージックビデオ",
-      "url": "",
-      "tag": "Coming Soon",
-      "year": "",
-      "note": "現在制作進行中です。公開をお待ちください。",
-      "thumbOverride": ""
+      "note": "最新シングルや映像企画をまとめた公式MVプレイリスト。作品ごとに異なる世界観を楽しめます。",
+      "thumbOverride": "https://img.youtube.com/vi/FY4w8TIegrM/hqdefault.jpg"
     }
   ],
   "items": [
@@ -40,8 +40,24 @@
       "url": "https://youtu.be/XHgiszhCfJU",
       "tag": "Trailer",
       "year": "2025",
-      "note": "短編映画「アスティスの旅」の予告編。日本語字幕ver.を公開中。",
+      "note": "短編映画「アスティスの旅」の世界観を凝縮した予告編。",
       "thumbOverride": ""
+    },
+    {
+      "title": "映画『アスティスの旅』本編（日本語字幕）",
+      "url": "https://youtu.be/0-vgueJasSc",
+      "tag": "Film",
+      "year": "2025",
+      "note": "日本語字幕版の本編映像。旅の記憶と祈りが交差する短編映画をフルで収録。",
+      "thumbOverride": "https://img.youtube.com/vi/0-vgueJasSc/hqdefault.jpg"
+    },
+    {
+      "title": "映画『アスティスの旅』本編（英語字幕）",
+      "url": "https://youtu.be/M7gH7LaODS4",
+      "tag": "Film",
+      "year": "2025",
+      "note": "英語字幕版の本編映像。海外向け上映にも対応したバージョンです。",
+      "thumbOverride": "https://img.youtube.com/vi/M7gH7LaODS4/hqdefault.jpg"
     },
     {
       "title": "荒野酒場",
@@ -68,12 +84,36 @@
       "thumbOverride": "https://img.youtube.com/vi/FY4w8TIegrM/hqdefault.jpg"
     },
     {
-      "title": "ライブビデオ プレイリスト",
+      "title": "ライブビデオアーカイブ I",
       "url": "https://youtube.com/playlist?list=PLDOzaZxFAdjruP60mFkCw1VNY1Duz3huN",
       "tag": "Playlist",
       "year": "",
-      "note": "ライブパフォーマンスの記録を年代順にアーカイブ。",
+      "note": "クラブイベントや小劇場でのライブセットを中心に収録したプレイリスト。",
       "thumbOverride": "https://img.youtube.com/vi/TVYbvLd-_QI/hqdefault.jpg"
+    },
+    {
+      "title": "ライブビデオアーカイブ II",
+      "url": "https://youtube.com/playlist?list=PLDOzaZxFAdjqbxJ8RlB97OU452Gt3Ntlg",
+      "tag": "Playlist",
+      "year": "",
+      "note": "アコースティック編成やセッションスタイルのライブ映像をアーカイブ。",
+      "thumbOverride": "https://img.youtube.com/vi/ElrvM0j2dt8/hqdefault.jpg"
+    },
+    {
+      "title": "ライブビデオアーカイブ III",
+      "url": "https://youtube.com/playlist?list=PLDOzaZxFAdjp7ME8lkkPzGkl32eiW7QXq",
+      "tag": "Playlist",
+      "year": "",
+      "note": "フェス出演や屋外パフォーマンスを収録した最新ライブ映像集。",
+      "thumbOverride": "https://img.youtube.com/vi/FY4w8TIegrM/hqdefault.jpg"
+    },
+    {
+      "title": "ミュージックビデオ プレイリスト",
+      "url": "https://youtube.com/playlist?list=PLDOzaZxFAdjqMFfjGrdkEASrpv0OjwcpS",
+      "tag": "Playlist",
+      "year": "",
+      "note": "最新シングルや映像企画をまとめた公式MVプレイリスト。",
+      "thumbOverride": "https://img.youtube.com/vi/FY4w8TIegrM/hqdefault.jpg"
     },
     {
       "title": "公式YouTubeチャンネル",

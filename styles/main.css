@@ -397,7 +397,7 @@ body {
 }
 
 .info-section + .info-section {
-    margin-top: clamp(56px, 9vw, 100px);
+    margin-top: clamp(64px, 10vw, 120px);
 }
 
 .info-section__inner {
@@ -525,6 +525,16 @@ body {
     letter-spacing: 0.1em;
     color: #f3f1ea;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.45);
+}
+
+@media (min-width: 1280px) {
+    .hero-spacer {
+        height: clamp(600px, 92vh, 860px);
+    }
+
+    .info-section + .info-section {
+        margin-top: clamp(96px, 12vw, 180px);
+    }
 }
 
 @media (max-width: 768px) {

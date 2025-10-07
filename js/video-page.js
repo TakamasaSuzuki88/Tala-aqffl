@@ -1,6 +1,6 @@
 import { ytIdFromUrl, ytThumb } from './youtube.js';
 
-const TAGS = ['All', 'Trailer', 'Playlist', 'MV', 'Live', 'Channel', 'Coming Soon'];
+const TAGS = ['All', 'Trailer', 'Film', 'Playlist', 'MV', 'Live', 'Channel', 'Coming Soon'];
 const state = {
     items: [],
     currentTag: 'All'
@@ -135,7 +135,7 @@ function createVideoCard(item) {
     } else {
         link.classList.add('no-thumb');
         const span = document.createElement('span');
-        span.textContent = 'Preview coming soon';
+        span.textContent = item.tag === 'Playlist' ? 'Playlist Preview' : 'Preview coming soon';
         link.appendChild(span);
     }
 
