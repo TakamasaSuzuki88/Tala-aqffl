@@ -1,0 +1,6 @@
+# Vercel specific ignore (overrides .gitignore for deployment)
+# We want to include images in Vercel deployment even though they're in .gitignore
+
+# Don't ignore image directories for Vercel
+!public/img/写真/
+!public/img/絵/
