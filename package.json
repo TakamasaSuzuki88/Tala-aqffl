@@ -5,23 +5,31 @@
   "description": "まるいそら - 3D Mandala Multi-Artist Portfolio",
   "author": "Takamasa Suzuki",
   "scripts": {
-    "dev": "npx serve .",
-    "build": "echo 'Static site - no build required'",
-    "preview": "npx serve .",
-    "start": "npx serve -p 3000",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
     "deploy": "vercel --prod"
   },
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "next": "^14.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "three": "^0.163.0"
+  },
   "devDependencies": {
-    "serve": "^14.2.0",
-    "vercel": "^32.0.0",
-    "@types/bun": "latest"
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@types/three": "^0.163.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.3",
+    "typescript": "^5.4.5",
+    "vercel": "^32.0.0"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.17.0"
   },
-  "module": "index.ts",
-  "type": "module",
-  "peerDependencies": {
-    "typescript": "^5"
-  }
+  "type": "module"
 }

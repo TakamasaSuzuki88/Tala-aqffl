@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>絵画 – PAINTING | まるいそら</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/subpage.css">
+</head>
+<body class="page-painting">
+    <div id="transition-overlay" class="page-transition active"></div>
+
+    <div class="main-container">
+        <div class="quick-nav">
+            <div class="home-mandala" data-target="/" title="ホーム - 曼荼羅の中心へ戻る">
+                <div class="mandala-cell" data-link="1"><span>音楽</span></div>
+                <div class="mandala-cell" data-link="2"><span>映像</span></div>
+                <div class="mandala-cell" data-link="3"><span>絵画</span></div>
+                <div class="mandala-cell" data-link="4"><span>写真</span></div>
+                <div class="mandala-cell center" data-link="5"><span>思想</span></div>
+                <div class="mandala-cell" data-link="6"><span>言葉</span></div>
+                <div class="mandala-cell" data-link="7"><span>販売</span></div>
+                <div class="mandala-cell" data-link="8"><span>ゲーム</span></div>
+                <div class="mandala-cell" data-link="9"><span>リンク集</span></div>
+            </div>
+            <div class="home-label" data-target="/" role="button" tabindex="0">曼荼羅ホーム</div>
+        </div>
+
+        <div class="content">
+            <section class="hero">
+                <h1>絵画 – PAINTING</h1>
+                <p>色彩の瞑想、形の詩。<br>静けさと躍動が同居するキャンバス作品を紹介します。</p>
+            </section>
+
+            <section class="gallery painting-gallery" aria-labelledby="painting-gallery-heading">
+                <div class="gallery-header">
+                    <div>
+                        <h2 id="painting-gallery-heading">キャンバスの呼吸</h2>
+                        <p>タイトルを持つ代表作から<br>静かに佇むアーカイブまで。<br>全作品は番号で索引できるよう整理しました。</p>
+                    </div>
+                    <div class="gallery-stats" aria-live="polite">
+                        <span class="stat" data-stat="featured-count">代表作 0点</span>
+                        <span class="stat" data-stat="total-count">全作品 0点</span>
+                    </div>
+                </div>
+
+                <div class="gallery-tabs" role="tablist" aria-label="絵画ギャラリー表示切り替え">
+                    <button type="button" id="painting-featured-tab" class="gallery-tab active" role="tab" aria-selected="true" aria-controls="painting-featured" data-panel="featured">タイトル作品</button>
+                    <button type="button" id="painting-archive-tab" class="gallery-tab" role="tab" aria-selected="false" aria-controls="painting-archive" data-panel="archive">アーカイブ</button>
+                </div>
+
+                <div class="gallery-panels">
+                    <div id="painting-featured" class="gallery-panel" role="tabpanel" aria-labelledby="painting-featured-tab" data-panel="featured">
+                        <div class="gallery-grid featured-grid" data-gallery="featured"></div>
+                    </div>
+                    <div id="painting-archive" class="gallery-panel hidden" role="tabpanel" aria-labelledby="painting-archive-tab" data-panel="archive" hidden>
+                        <div class="gallery-grid archive-grid" data-gallery="archive"></div>
+                    </div>
+                </div>
+
+                <noscript>
+                    <p class="noscript-message">すべての作品を表示するにはJavaScriptを有効にしてください。</p>
+                </noscript>
+            </section>
+
+            <footer class="footer">
+                <div class="footer-grid">
+                    <div class="footer-section">
+                        <h3>SNS</h3>
+                        <div class="footer-links">
+                            <a href="https://x.com/taro8877" target="_blank" class="footer-link">X (Twitter)</a>
+                            <a href="https://www.instagram.com/takamasa_suzukii/" target="_blank" class="footer-link">Instagram</a>
+                            <a href="https://www.facebook.com/takamasa.suzuki.963" target="_blank" class="footer-link">Facebook</a>
+                        </div>
+                    </div>
+                    <div class="footer-section">
+                        <h3>音楽配信</h3>
+                        <div class="footer-links">
+                            <a href="https://www.tunecore.co.jp/artists/Takamasa-Suzuki" target="_blank" class="footer-link">TuneCore Japan</a>
+                            <a href="https://petitlyrics.com/search_lyrics" target="_blank" class="footer-link">PetitLyrics</a>
+                        </div>
+                    </div>
+                    <div class="footer-section">
+                        <h3>ブログ</h3>
+                    <div class="footer-links">
+                        <a href="http://maruisora88.seesaa.net/" target="_blank" class="footer-link">まるいそらブログ</a>
+                        <a href="http://sharpsnowarthouse3.seesaa.net/" target="_blank" class="footer-link">旧まるいそら音楽出版</a>
+                        <a href="http://sharpsnowarthouse.seesaa.net/" target="_blank" class="footer-link">旧まるいそら音楽出版アーカイブ</a>
+                    </div>
+                </div>
+                </div>
+                <div class="footer-copyright">
+                    <p>©︎2008鈴木たかまさ(まるいそら音楽出版)-All Rights Reserved</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="../js/subpage.js"></script>
+    <script type="module">
+        import { initPaintingGallery } from '../js/gallery.js';
+
+        initPaintingGallery({
+            dataUrl: '../content/paintings.json',
+            rootSelector: '.painting-gallery'
+        });
+    </script>
+</body>
+</html>

@@ -4,10 +4,10 @@
 3D曼荼羅インタラクティブポートフォリオサイト
 
 ## 技術スタック
-- Three.js (CDN)
-- GSAP Animation
-- Vanilla JavaScript
-- CSS3
+- Next.js 14 (App Router)
+- React 18 + TypeScript
+- Three.js / GSAP
+- Global CSS (Google Fonts + 既存スタイル)
 - Vercel Hosting
 
 ## ローカル開発
@@ -27,10 +27,11 @@ npm run deploy
 ```
 
 ## 構成
-- `index.html` - メインHTML
-- `styles/main.css` - スタイリング
-- `js/mandala-3d.js` - Three.js実装
-- `vercel.json` - Vercel設定
+- `app/page.tsx` - Next.js ホームエントリ
+- `components/MandalaExperience.tsx` - 3D曼荼羅／UIロジック
+- `app/globals.css` - 全体スタイル（Google Fonts + 既存CSSの取り込み）
+- `public/` - 背景画像や既存HTML/アセットの公開ディレクトリ
+- `vercel.json` - ヘッダ設定
 
 ## セクション構成
 1. 音楽

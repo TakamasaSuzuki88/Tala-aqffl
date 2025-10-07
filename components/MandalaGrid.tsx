@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 export type MandalaItem = {
   img: string;   // 画像パス（/mandala/01.jpg など）
@@ -15,15 +16,15 @@ export type MandalaGridProps = {
 };
 
 const defaults: MandalaItem[] = [
-  { img: '01.jpg', label: '音楽',       href: '/music',   opacity: 0.26 }, // 1 → 01.jpg
-  { img: '02.jpg', label: '映画',       href: '/movie',   opacity: 0.20 }, // 2 → 02.jpg（密）
-  { img: '03.jpg', label: '絵画',       href: '/painting',opacity: 0.26 }, // 3 → 03.jpg
-  { img: '04.jpg', label: '写真',       href: '/photo',   opacity: 0.24 }, // 4 → 04.jpg
-  { img: '05.jpg', label: '思想',       href: '/idea',    opacity: 0.24 }, // 5 → 05.jpg
-  { img: '06.jpg', label: '言葉',       href: '/words',   opacity: 0.24 }, // 6 → 06.jpg
-  { img: '07.jpg', label: '販売', href: '/money',   opacity: 0.20 }, // 7 → 07.jpg（密）
-  { img: '08.jpg', label: 'ゲーム',     href: '/game',    opacity: 0.24 }, // 8 → 08.jpg
-  { img: '09.jpg', label: 'リンク集',   href: '/links',   opacity: 0.20 }, // 9 → 09.jpg（密）
+  { img: '01.jpg', label: '音楽',       href: '/music-page.html',     opacity: 0.26 }, // 1 → 01.jpg
+  { img: '02.jpg', label: '映画',       href: '/movie/index.html',    opacity: 0.20 }, // 2 → 02.jpg（密）
+  { img: '03.jpg', label: '絵画',       href: '/painting/index.html', opacity: 0.26 }, // 3 → 03.jpg
+  { img: '04.jpg', label: '写真',       href: '/photo/index.html',    opacity: 0.24 }, // 4 → 04.jpg
+  { img: '05.jpg', label: '思想',       href: '/idea/index.html',     opacity: 0.24 }, // 5 → 05.jpg
+  { img: '06.jpg', label: '言葉',       href: '/words/index.html',    opacity: 0.24 }, // 6 → 06.jpg
+  { img: '07.jpg', label: '販売',       href: '/money/index.html',    opacity: 0.20 }, // 7 → 07.jpg（密）
+  { img: '08.jpg', label: 'ゲーム',     href: '/game/index.html',     opacity: 0.24 }, // 8 → 08.jpg
+  { img: '09.jpg', label: 'リンク集',   href: '/links/index.html',    opacity: 0.20 }, // 9 → 09.jpg（密）
 ];
 
 const MandalaGrid: React.FC<MandalaGridProps> = ({ items = defaults, insetPct = 3.5 }) => {
@@ -69,16 +70,13 @@ const MandalaGrid: React.FC<MandalaGridProps> = ({ items = defaults, insetPct = 
                     filter: 'saturate(0.8)'
                   }}
                 >
-                  <img
+                  <Image
                     src={`/mandala/${it.img}`}
                     alt=""
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover'
-                    }}
-                    loading="lazy"
-                    decoding="async"
+                    fill
+                    sizes="(max-width: 768px) 33vw, (max-width: 1200px) 28vw, 280px"
+                    style={{ objectFit: 'cover' }}
+                    priority={false}
                   />
                 </div>
 
