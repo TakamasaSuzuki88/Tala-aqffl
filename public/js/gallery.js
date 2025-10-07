@@ -1,4 +1,4 @@
-const DEFAULT_IMAGE_PREFIX = '../';
+const DEFAULT_IMAGE_PREFIX = '/';
 
 const htmlEscapes = {
   '&': '&amp;',
@@ -51,7 +51,10 @@ const formatStat = (label, count, unit) => `${label} ${count}${unit}`;
 
 const select = (root, selector) => root.querySelector(selector);
 
-const createImagePath = (src) => `${DEFAULT_IMAGE_PREFIX}${encodeURI(src.replace(/\\/g, '/'))}`;
+const createImagePath = (src) => {
+  const normalized = src.replace(/\\/g, '/').replace(/^(\.\.\/)+/, '');
+  return `${DEFAULT_IMAGE_PREFIX}${encodeURI(normalized)}`;
+};
 
 const createPaintingCard = (item, variant) => {
   const altTitle = item.title ? `「${item.title}」` : item.id;
