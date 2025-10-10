@@ -53,7 +53,10 @@ const select = (root, selector) => root.querySelector(selector);
 
 const createImagePath = (src) => {
   const normalized = src.replace(/\\/g, '/').replace(/^(\.\.\/)+/, '');
-  return `${DEFAULT_IMAGE_PREFIX}${encodeURI(normalized)}`;
+  // Remove leading slash if DEFAULT_IMAGE_PREFIX already has one
+  const cleanPath = normalized.startsWith('/') ? normalized.slice(1) : normalized;
+  const fullPath = DEFAULT_IMAGE_PREFIX === '/' ? `/${cleanPath}` : `${DEFAULT_IMAGE_PREFIX}${cleanPath}`;
+  return encodeURI(fullPath);
 };
 
 const createPaintingCard = (item, variant) => {
@@ -86,14 +89,17 @@ const createPhotoCard = (item, index) => {
       <a class="photo-link" href="${imageUrl}" target="_blank" rel="noopener" aria-label="${escapeHtml(label)} を拡大表示">
         <figure class="photo-figure">
           <div class="photo-wrapper">
-            <img 
-              class="photo-image" 
-              data-src="${imageUrl}" 
-              alt="${escapeHtml(item.label)}" 
+            <img
+              class="photo-image"
+              data-src="${imageUrl}"
+              alt="${escapeHtml(item.label)}"
               loading="lazy"
             >
             <div class="photo-noise"></div>
           </div>
+          <figcaption class="photo-caption">
+            <span class="photo-code">${escapeHtml(item.id)}</span>
+          </figcaption>
         </figure>
       </a>
     </article>
