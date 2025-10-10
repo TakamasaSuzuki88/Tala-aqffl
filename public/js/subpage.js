@@ -1,4 +1,4 @@
-const transitionOverlay = document.getElementById('transition-overlay');
+const transitionOverlay = document.getElementById('page-overlay') || document.getElementById('transition-overlay');
 
 const NAVIGATION_MAP = {
     '1': '/music-page.html',
@@ -52,7 +52,7 @@ if (homeMandala) {
 }
 
 function navigateWithFade(targetHref) {
-    const targetUrl = new URL(targetHref, window.location.origin);
+    const targetUrl = new URL(targetHref, window.location.href);
     if (transitionOverlay) {
         transitionOverlay.classList.add('active');
         setTimeout(() => {

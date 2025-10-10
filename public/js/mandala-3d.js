@@ -22,15 +22,15 @@ const navigationTargets = {
 // Section data - Keypad style 3x3 grid (tight spacing)
 // Button mapping: 1→01.jpg, 2→02.jpg, 3→03.jpg, 4→04.jpg, 5→05.jpg, 6→06.jpg, 7→07.jpg, 8→08.jpg, 9→09.jpg
 const sectionData = [
-    { id: 'music', number: '1', name: '音楽', description: '音の宇宙、リズムの曼荼羅', position: { x: -1.05, y: 1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/01.jpg', href: 'music-page.html' },
-    { id: 'video', number: '2', name: '映像', description: '動く光、時間の芸術', position: { x: 0, y: 1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/02.jpg', href: 'movie/index.html' },
-    { id: 'painting', number: '3', name: '絵画', description: '色彩の瞑想、形の詩', position: { x: 1.05, y: 1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/03.jpg', href: '/painting' },
-    { id: 'photo', number: '4', name: '写真', description: '瞬間の永遠、光の記憶', position: { x: -1.05, y: 0, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/04.jpg', href: '/photo' },
-    { id: 'philosophy', number: '5', name: '思想', description: '魂の中心、存在の核', position: { x: 0, y: 0, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/05.jpg', href: '/idea' },
-    { id: 'words', number: '6', name: '言葉', description: '意識の結晶、思考の形', position: { x: 1.05, y: 0, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/06.jpg', href: '/words' },
-    { id: 'monetize', number: '7', name: '販売', description: '価値の創造、豊かさの循環', position: { x: -1.05, y: -1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/07.jpg', href: '/money' },
-    { id: 'game', number: '8', name: 'ゲーム', description: '遊びの哲学、インタラクティブアート', position: { x: 0, y: -1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/08.jpg', href: '/game' },
-    { id: 'links', number: '9', name: 'リンク集', description: '繋がりの網、共鳴の場', position: { x: 1.05, y: -1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/09.jpg', href: '/links' }
+    { id: 'music', number: '1', name: '音楽', description: '音の宇宙、リズムの曼荼羅', position: { x: -1.05, y: 1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/01.jpg', href: '/music-page.html' },
+    { id: 'video', number: '2', name: '映像', description: '動く光、時間の芸術', position: { x: 0, y: 1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/02.jpg', href: '/movie/index.html' },
+    { id: 'painting', number: '3', name: '絵画', description: '色彩の瞑想、形の詩', position: { x: 1.05, y: 1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/03.jpg', href: '/painting/index.html' },
+    { id: 'photo', number: '4', name: '写真', description: '瞬間の永遠、光の記憶', position: { x: -1.05, y: 0, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/04.jpg', href: '/photo/index.html' },
+    { id: 'philosophy', number: '5', name: '思想', description: '魂の中心、存在の核', position: { x: 0, y: 0, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/05.jpg', href: '/idea/index.html' },
+    { id: 'words', number: '6', name: '言葉', description: '意識の結晶、思考の形', position: { x: 1.05, y: 0, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/06.jpg', href: '/words/index.html' },
+    { id: 'monetize', number: '7', name: '販売', description: '価値の創造、豊かさの循環', position: { x: -1.05, y: -1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/07.jpg', href: '/money/index.html' },
+    { id: 'game', number: '8', name: 'ゲーム', description: '遊びの哲学、インタラクティブアート', position: { x: 0, y: -1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/08.jpg', href: '/game/index.html' },
+    { id: 'links', number: '9', name: 'リンク集', description: '繋がりの網、共鳴の場', position: { x: 1.05, y: -1.05, z: 0 }, color: 0xFAF0E6, imageFile: '/mandala/09.jpg', href: '/links/index.html' }
 ];
 
 // Initialize Three.js
@@ -60,7 +60,7 @@ async function init() {
     const testLoader = new THREE.TextureLoader();
     console.log('TextureLoader available:', testLoader !== undefined);
 
-    transitionOverlay = document.getElementById('transition-overlay');
+    transitionOverlay = document.getElementById('page-overlay') || document.getElementById('transition-overlay');
 
     try {
         // Scene setup
@@ -131,7 +131,7 @@ async function init() {
         }
         
         // Cache transition overlay and reveal page
-        transitionOverlay = document.getElementById('transition-overlay');
+        transitionOverlay = document.getElementById('page-overlay') || document.getElementById('transition-overlay');
 
         // Hide loading screen
         hideLoadingScreen();

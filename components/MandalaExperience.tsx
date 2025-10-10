@@ -1000,14 +1000,11 @@ export function MandalaPage() {
   return (
     <main id="content-root" className="page-wrapper" aria-label="トピックとニュース一覧">
       <section id="topics" className="home-feed home-feed--topics" aria-labelledby="topics-heading">
-        <div className="home-feed__inner">
-          <div className="home-feed__header">
+        <div className="home-feed__container">
+          <div className="home-feed__heading">
             <h2 id="topics-heading" className="home-feed__title" aria-label="トピック">
               TOPIC
             </h2>
-            <a href="/topics" className="home-feed__more" aria-label="トピックをもっと見る">
-              MORE
-            </a>
           </div>
 
           <ul className="home-feed__list" role="list">
@@ -1023,24 +1020,17 @@ export function MandalaPage() {
                   .join(' ')}
                 title={item.pending ? '公開予定' : undefined}
               >
-                {item.pending ? (
-                  <div className="home-feed__link home-feed__link--static">
-                    <span className="home-feed__date">{item.date}</span>
-                    <span className="home-feed__title-text">{item.title}</span>
-                  </div>
-                ) : (
-                  <a className="home-feed__link" href={item.href}>
-                    <span className="home-feed__date">{item.date}</span>
-                    <span className="home-feed__title-text">
-                      {item.pinned && (
-                        <span className="home-feed__badge" aria-label="注目" role="img">
-                          ●
-                        </span>
-                      )}
-                      {item.title}
-                    </span>
-                  </a>
-                )}
+                <div className="home-feed__link home-feed__link--static">
+                  <span className="home-feed__date">{item.date}</span>
+                  <span className="home-feed__title-text">
+                    {item.pinned && (
+                      <span className="home-feed__badge" aria-label="注目" role="img">
+                        ●
+                      </span>
+                    )}
+                    {item.title}
+                  </span>
+                </div>
               </li>
             ))}
           </ul>
@@ -1048,14 +1038,11 @@ export function MandalaPage() {
       </section>
 
       <section id="news" className="home-feed home-feed--news" aria-labelledby="news-heading">
-        <div className="home-feed__inner">
-          <div className="home-feed__header">
+        <div className="home-feed__container">
+          <div className="home-feed__heading">
             <h2 id="news-heading" className="home-feed__title" aria-label="ニュース">
               NEWS
             </h2>
-            <a href="/news" className="home-feed__more" aria-label="ニュースをもっと見る">
-              MORE
-            </a>
           </div>
 
           <ul className="home-feed__list" role="list">
@@ -1071,29 +1058,17 @@ export function MandalaPage() {
                   .join(' ')}
                 title={item.pending ? '公開予定' : undefined}
               >
-                {item.pending ? (
-                  <div className="home-feed__link home-feed__link--static">
-                    <span className="home-feed__date">{item.date}</span>
-                    <span className="home-feed__title-text">{item.title}</span>
-                  </div>
-                ) : (
-                  <a
-                    className="home-feed__link"
-                    href={item.href}
-                    target={item.external ? '_blank' : undefined}
-                    rel={item.external ? 'noopener noreferrer' : undefined}
-                  >
-                    <span className="home-feed__date">{item.date}</span>
-                    <span className="home-feed__title-text">
-                      {item.pinned && (
-                        <span className="home-feed__badge" aria-label="注目" role="img">
-                          ●
-                        </span>
-                      )}
-                      {item.title}
-                    </span>
-                  </a>
-                )}
+                <div className="home-feed__link home-feed__link--static">
+                  <span className="home-feed__date">{item.date}</span>
+                  <span className="home-feed__title-text">
+                    {item.pinned && (
+                      <span className="home-feed__badge" aria-label="注目" role="img">
+                        ●
+                      </span>
+                    )}
+                    {item.title}
+                  </span>
+                </div>
               </li>
             ))}
           </ul>
