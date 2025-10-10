@@ -38,6 +38,7 @@ next-env.d.ts
 # playwright
 .playwright-mcp/
 
-# Large image directories - commented out to allow Vercel deployment
-# public/img/写真/
-# public/img/絵/
+# Large image directories - exclude from GitHub, include in Vercel deployment
+public/img/写真/
+public/img/絵/
+public/mandala/
