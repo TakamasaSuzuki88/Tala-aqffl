@@ -22,7 +22,7 @@
     </div>
 
     <!-- Page Transition Overlay -->
-    <div id="transition-overlay" class="page-transition active"></div>
+    <div id="page-overlay" class="page-crossfade active"></div>
 
     <!-- Main 3D Canvas Container -->
     <div id="canvas-container"></div>
@@ -40,123 +40,123 @@
     <main id="content-root" class="page-wrapper" aria-label="トピックとニュース一覧">
         <div class="hero-spacer" aria-hidden="true"></div>
 
-        <section class="info-section info-section--topics" aria-labelledby="topics-heading">
-            <div class="info-section__inner">
-                <div class="info-section__header">
-                    <h2 id="topics-heading" class="info-section__title text-outline">トピック</h2>
-                    <a href="/topics" class="info-section__more">もっと見る</a>
+        <section id="topics" class="home-feed home-feed--topics" aria-labelledby="topics-heading">
+            <div class="home-feed__inner">
+                <div class="home-feed__header">
+                    <h2 id="topics-heading" class="home-feed__title">トピック</h2>
+                    <a href="/topics" class="home-feed__more">もっと見る</a>
                 </div>
 
-                <ul class="info-feed" role="list">
-                    <li class="info-item is-pinned">
-                        <a class="info-link" href="/music/umikiri-notes">
-                            <span class="info-item-date">2025.02.14</span>
-                            <span class="info-item-title">
-                                <span class="info-item-badge" aria-label="注目" role="img">●</span>
-                                新作アルバム『海霧を越えて』制作背景と楽曲スケッチ公開配信のお知らせ
+                <ul class="home-feed__list" role="list">
+                    <li class="home-feed__item home-feed__item--pinned">
+                        <a class="home-feed__link" href="/music/umikiri-notes">
+                            <span class="home-feed__date">2025.02.14</span>
+                            <span class="home-feed__title-text">
+                                <span class="home-feed__badge" aria-label="注目" role="img">●</span>
+                                    新作アルバム『海霧を越えて』制作背景と楽曲スケッチ公開配信のお知らせ
                             </span>
                         </a>
                     </li>
-                    <li class="info-item">
-                        <a class="info-link" href="/event/mandala-live-remix">
-                            <span class="info-item-date">2025.01.28</span>
-                            <span class="info-item-title">曼荼羅3D体験会で実施したライブリミックスと来場者QAまとめ</span>
+                    <li class="home-feed__item">
+                        <a class="home-feed__link" href="/event/mandala-live-remix">
+                            <span class="home-feed__date">2025.01.28</span>
+                            <span class="home-feed__title-text">曼荼羅3D体験会で実施したライブリミックスと来場者QAまとめ</span>
                         </a>
                     </li>
-                    <li class="info-item">
-                        <a class="info-link" href="/painting/notes">
-                            <span class="info-item-date">2024.12.21</span>
-                            <span class="info-item-title">『群青の余白』シリーズ全作品の解説ノートと資料ダウンロード開始</span>
+                    <li class="home-feed__item">
+                        <a class="home-feed__link" href="/painting/notes">
+                            <span class="home-feed__date">2024.12.21</span>
+                            <span class="home-feed__title-text">『群青の余白』シリーズ全作品の解説ノートと資料ダウンロード開始</span>
                         </a>
                     </li>
-                    <li class="info-item">
-                        <a class="info-link" href="/movie/memories">
-                            <span class="info-item-date">2024.11.03</span>
-                            <span class="info-item-title">アーカイブ映像『まるいそらの記憶』字幕付き再編集版の公開日程</span>
+                    <li class="home-feed__item">
+                        <a class="home-feed__link" href="/movie/memories">
+                            <span class="home-feed__date">2024.11.03</span>
+                            <span class="home-feed__title-text">アーカイブ映像『まるいそらの記憶』字幕付き再編集版の公開日程</span>
                         </a>
                     </li>
-                    <li class="info-item">
-                        <a class="info-link" href="/words/yoi-review">
-                            <span class="info-item-date">2024.10.10</span>
-                            <span class="info-item-title">コラボレーション詩集『宵の地図』電子版に寄せられた読者レビュー紹介</span>
+                    <li class="home-feed__item">
+                        <a class="home-feed__link" href="/words/yoi-review">
+                            <span class="home-feed__date">2024.10.10</span>
+                            <span class="home-feed__title-text">コラボレーション詩集『宵の地図』電子版に寄せられた読者レビュー紹介</span>
                         </a>
                     </li>
-                    <li class="info-item is-pending" title="公開予定">
-                        <div class="info-link info-link--static">
-                            <span class="info-item-date">2024.09.18</span>
-                            <span class="info-item-title">次期テーマ展示『星屑の経路』は制作中です。続報をお待ちください</span>
+                    <li class="home-feed__item home-feed__item--pending" title="公開予定">
+                        <div class="home-feed__link home-feed__link--static">
+                            <span class="home-feed__date">2024.09.18</span>
+                            <span class="home-feed__title-text">次期テーマ展示『星屑の経路』は制作中です。続報をお待ちください</span>
                         </div>
                     </li>
                 </ul>
             </div>
         </section>
 
-        <section class="info-section info-section--news" aria-labelledby="news-heading">
-            <div class="info-section__inner">
-                <div class="info-section__header">
-                    <h2 id="news-heading" class="info-section__title text-outline">ニュース</h2>
-                    <a href="/news" class="info-section__more">もっと見る</a>
+        <section id="news" class="home-feed home-feed--news" aria-labelledby="news-heading">
+            <div class="home-feed__inner">
+                <div class="home-feed__header">
+                    <h2 id="news-heading" class="home-feed__title">ニュース</h2>
+                    <a href="/news" class="home-feed__more">もっと見る</a>
                 </div>
 
-                <ul class="info-feed" role="list">
-                    <li class="info-item is-pinned">
-                        <a class="info-link" href="https://note.com/maruisora/n/n9c4" target="_blank" rel="noopener noreferrer">
-                            <span class="info-item-date">2025.02.05</span>
-                            <span class="info-item-title">
-                                <span class="info-item-badge" aria-label="注目" role="img">●</span>
-                                ラジオ番組『夜の工房』で鈴木たかまさ特集が放送決定・公開収録参加受付中
+                <ul class="home-feed__list" role="list">
+                    <li class="home-feed__item home-feed__item--pinned">
+                        <a class="home-feed__link" href="https://note.com/maruisora/n/n9c4" target="_blank" rel="noopener noreferrer">
+                            <span class="home-feed__date">2025.02.05</span>
+                            <span class="home-feed__title-text">
+                                <span class="home-feed__badge" aria-label="注目" role="img">●</span>
+                                    ラジオ番組『夜の工房』で鈴木たかまさ特集が放送決定・公開収録参加受付中
                             </span>
                         </a>
                     </li>
-                    <li class="info-item">
-                        <a class="info-link" href="/money/shop-washi-poster">
-                            <span class="info-item-date">2025.01.20</span>
-                            <span class="info-item-title">オンラインショップでオリジナル和紙ポスターの数量限定再販を開始しました</span>
+                    <li class="home-feed__item">
+                        <a class="home-feed__link" href="/money/shop-washi-poster">
+                            <span class="home-feed__date">2025.01.20</span>
+                            <span class="home-feed__title-text">オンラインショップでオリジナル和紙ポスターの数量限定再販を開始しました</span>
                         </a>
                     </li>
-                    <li class="info-item">
-                        <a class="info-link" href="/music/archive-2025">
-                            <span class="info-item-date">2025.01.07</span>
-                            <span class="info-item-title">新春イベント『紅の余韻』ライブ配信アーカイブを期間限定で無料公開</span>
+                    <li class="home-feed__item">
+                        <a class="home-feed__link" href="/music/archive-2025">
+                            <span class="home-feed__date">2025.01.07</span>
+                            <span class="home-feed__title-text">新春イベント『紅の余韻』ライブ配信アーカイブを期間限定で無料公開</span>
                         </a>
                     </li>
-                    <li class="info-item">
-                        <a class="info-link" href="/news/year-end-schedule">
-                            <span class="info-item-date">2024.12.26</span>
-                            <span class="info-item-title">年末年始の問い合わせ対応および配送スケジュールについてのお知らせ</span>
+                    <li class="home-feed__item">
+                        <a class="home-feed__link" href="/news/year-end-schedule">
+                            <span class="home-feed__date">2024.12.26</span>
+                            <span class="home-feed__title-text">年末年始の問い合わせ対応および配送スケジュールについてのお知らせ</span>
                         </a>
                     </li>
-                    <li class="info-item">
-                        <a class="info-link" href="/news/gallery-renovation">
-                            <span class="info-item-date">2024.11.30</span>
-                            <span class="info-item-title">ギャラリー常設展示スペースの改装工事に伴う一時休館のご案内</span>
+                    <li class="home-feed__item">
+                        <a class="home-feed__link" href="/news/gallery-renovation">
+                            <span class="home-feed__date">2024.11.30</span>
+                            <span class="home-feed__title-text">ギャラリー常設展示スペースの改装工事に伴う一時休館のご案内</span>
                         </a>
                     </li>
-                    <li class="info-item">
-                        <div class="info-link info-link--static">
-                            <span class="info-item-date">2024.10.22</span>
-                            <span class="info-item-title">メディア掲載：雑誌『和の音』11月号で制作工程が紹介されました</span>
+                    <li class="home-feed__item">
+                        <div class="home-feed__link home-feed__link--static">
+                            <span class="home-feed__date">2024.10.22</span>
+                            <span class="home-feed__title-text">メディア掲載：雑誌『和の音』11月号で制作工程が紹介されました</span>
                         </div>
                     </li>
-                    <li class="info-item">
-                        <a class="info-link" href="/news/maintenance-20241002">
-                            <span class="info-item-date">2024.09.14</span>
-                            <span class="info-item-title">サーバメンテナンス実施予定（10月2日深夜）と影響範囲について</span>
+                    <li class="home-feed__item">
+                        <a class="home-feed__link" href="/news/maintenance-20241002">
+                            <span class="home-feed__date">2024.09.14</span>
+                            <span class="home-feed__title-text">サーバメンテナンス実施予定（10月2日深夜）と影響範囲について</span>
                         </a>
                     </li>
-                    <li class="info-item is-pending" title="公開予定">
-                        <div class="info-link info-link--static">
-                            <span class="info-item-date">2024.08.30</span>
-                            <span class="info-item-title">オリジナルサウンドトラック次回出荷分は現在調整中です。日程決定後ご案内</span>
+                    <li class="home-feed__item home-feed__item--pending" title="公開予定">
+                        <div class="home-feed__link home-feed__link--static">
+                            <span class="home-feed__date">2024.08.30</span>
+                            <span class="home-feed__title-text">オリジナルサウンドトラック次回出荷分は現在調整中です。日程決定後ご案内</span>
                         </div>
                     </li>
                 </ul>
             </div>
         </section>
 
-        <section class="info-section info-section--credit" aria-label="サイトクレジット">
-            <div class="info-section__inner">
-                <p class="site-credit">©︎2008鈴木たかまさ(まるいそら音楽出版)-All Rights Reserved</p>
+        <section class="home-credit" aria-label="サイトクレジット">
+            <div class="home-credit__inner">
+                <p class="home-credit__text">©︎2008鈴木たかまさ(まるいそら音楽出版)-All Rights Reserved</p>
             </div>
         </section>
     </main>

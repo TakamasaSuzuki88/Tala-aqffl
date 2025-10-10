@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
+import FooterSocials from './FooterSocials';
 
 gsap.defaults({ overwrite: 'auto' });
 
@@ -128,6 +129,7 @@ export function MandalaExperience() {
 
     let animationFrameId = 0;
     let resizeHandler: (() => void) | null = null;
+    let resizeObserver: ResizeObserver | null = null;
     let pointerMoveHandler: ((event: PointerEvent) => void) | null = null;
     let pointerLeaveHandler: ((event: PointerEvent) => void) | null = null;
     let pointerCancelHandler: ((event: PointerEvent) => void) | null = null;
@@ -153,6 +155,33 @@ export function MandalaExperience() {
     const pointer = new THREE.Vector2();
     let pointerOverCanvas = false;
     let needsRaycast = false;
+
+    const getContainerSize = () => {
+      if (!container) {
+        return null;
+      }
+      const bounds = container.getBoundingClientRect();
+      if (bounds.width === 0 || bounds.height === 0) {
+        return null;
+      }
+      return { width: bounds.width, height: bounds.height };
+    };
+
+    const applyRendererSize = () => {
+      if (!camera || !renderer) {
+        return;
+      }
+
+      const size = getContainerSize();
+      const width = size?.width ?? window.innerWidth;
+      const height = size?.height ?? Math.max(window.innerHeight * 0.75, 480);
+
+      camera.aspect = width / Math.max(height, 1);
+      camera.updateProjectionMatrix();
+
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(width, height, false);
+    };
 
     const updatePointerState = (clientX: number, clientY: number): boolean => {
       if (!renderer) {
@@ -737,13 +766,18 @@ export function MandalaExperience() {
       scene = new THREE.Scene();
       scene.fog = new THREE.Fog(0xaa8f23, 5, 20);
 
-      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const size = getContainerSize();
+      const initialAspect =
+        size && size.height > 0 ? size.width / size.height : window.innerWidth / Math.max(window.innerHeight, 1);
+
+      camera = new THREE.PerspectiveCamera(75, initialAspect, 0.1, 1000);
       camera.position.set(0, 0, 4.75);
       camera.lookAt(0, 0, 0);
 
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.domElement.style.display = 'block';
+      renderer.domElement.style.width = '100%';
+      renderer.domElement.style.height = '100%';
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       renderer.shadowMap.autoUpdate = true;
@@ -782,13 +816,10 @@ export function MandalaExperience() {
       pointerLeaveHandler = onPointerLeave;
       pointerCancelHandler = onPointerCancel;
       pointerDownHandler = onPointerDown;
+      applyRendererSize();
+
       resizeHandler = () => {
-        if (!camera || !renderer) {
-          return;
-        }
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        applyRendererSize();
       };
 
       window.addEventListener('pointermove', pointerMoveHandler);
@@ -796,6 +827,13 @@ export function MandalaExperience() {
       window.addEventListener('pointercancel', pointerCancelHandler);
       window.addEventListener('pointerdown', pointerDownHandler);
       window.addEventListener('resize', resizeHandler);
+
+      if ('ResizeObserver' in window && container) {
+        resizeObserver = new ResizeObserver(() => {
+          applyRendererSize();
+        });
+        resizeObserver.observe(container);
+      }
 
       animateScene();
 
@@ -823,6 +861,9 @@ export function MandalaExperience() {
       }
       if (resizeHandler) {
         window.removeEventListener('resize', resizeHandler);
+      }
+      if (resizeObserver) {
+        resizeObserver.disconnect();
       }
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
@@ -861,7 +902,7 @@ export function MandalaExperience() {
         <div className="loading-spinner" />
         <p className="loading-text">準備中...</p>
       </div>
-      <div ref={transitionOverlayRef} id="transition-overlay" className="page-transition active" />
+      <div ref={transitionOverlayRef} id="page-overlay" className="page-crossfade active" />
       <div ref={canvasContainerRef} id="canvas-container" />
     </>
   );
@@ -958,37 +999,41 @@ const NEWS: FeedItem[] = [
 export function MandalaPage() {
   return (
     <main id="content-root" className="page-wrapper" aria-label="トピックとニュース一覧">
-      <div className="hero-spacer" aria-hidden="true" />
-
-      <section className="info-section info-section--topics" aria-labelledby="topics-heading">
-        <div className="info-section__inner">
-          <div className="info-section__header">
-            <h2 id="topics-heading" className="info-section__title text-outline">
-              トピック
+      <section id="topics" className="home-feed home-feed--topics" aria-labelledby="topics-heading">
+        <div className="home-feed__inner">
+          <div className="home-feed__header">
+            <h2 id="topics-heading" className="home-feed__title" aria-label="トピック">
+              TOPIC
             </h2>
-            <a href="/topics" className="info-section__more">
-              もっと見る
+            <a href="/topics" className="home-feed__more" aria-label="トピックをもっと見る">
+              MORE
             </a>
           </div>
 
-          <ul className="info-feed" role="list">
+          <ul className="home-feed__list" role="list">
             {TOPICS.map((item) => (
               <li
                 key={item.date + item.title}
-                className={`info-item${item.pinned ? ' is-pinned' : ''}${item.pending ? ' is-pending' : ''}`}
+                className={[
+                  'home-feed__item',
+                  item.pinned ? 'home-feed__item--pinned' : '',
+                  item.pending ? 'home-feed__item--pending' : ''
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
                 title={item.pending ? '公開予定' : undefined}
               >
                 {item.pending ? (
-                  <div className="info-link info-link--static">
-                    <span className="info-item-date">{item.date}</span>
-                    <span className="info-item-title">{item.title}</span>
+                  <div className="home-feed__link home-feed__link--static">
+                    <span className="home-feed__date">{item.date}</span>
+                    <span className="home-feed__title-text">{item.title}</span>
                   </div>
                 ) : (
-                  <a className="info-link" href={item.href}>
-                    <span className="info-item-date">{item.date}</span>
-                    <span className="info-item-title">
+                  <a className="home-feed__link" href={item.href}>
+                    <span className="home-feed__date">{item.date}</span>
+                    <span className="home-feed__title-text">
                       {item.pinned && (
-                        <span className="info-item-badge" aria-label="注目" role="img">
+                        <span className="home-feed__badge" aria-label="注目" role="img">
                           ●
                         </span>
                       )}
@@ -1002,40 +1047,46 @@ export function MandalaPage() {
         </div>
       </section>
 
-      <section className="info-section info-section--news" aria-labelledby="news-heading">
-        <div className="info-section__inner">
-          <div className="info-section__header">
-            <h2 id="news-heading" className="info-section__title text-outline">
-              ニュース
+      <section id="news" className="home-feed home-feed--news" aria-labelledby="news-heading">
+        <div className="home-feed__inner">
+          <div className="home-feed__header">
+            <h2 id="news-heading" className="home-feed__title" aria-label="ニュース">
+              NEWS
             </h2>
-            <a href="/news" className="info-section__more">
-              もっと見る
+            <a href="/news" className="home-feed__more" aria-label="ニュースをもっと見る">
+              MORE
             </a>
           </div>
 
-          <ul className="info-feed" role="list">
+          <ul className="home-feed__list" role="list">
             {NEWS.map((item) => (
               <li
                 key={item.date + item.title}
-                className={`info-item${item.pinned ? ' is-pinned' : ''}${item.pending ? ' is-pending' : ''}`}
+                className={[
+                  'home-feed__item',
+                  item.pinned ? 'home-feed__item--pinned' : '',
+                  item.pending ? 'home-feed__item--pending' : ''
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
                 title={item.pending ? '公開予定' : undefined}
               >
                 {item.pending ? (
-                  <div className="info-link info-link--static">
-                    <span className="info-item-date">{item.date}</span>
-                    <span className="info-item-title">{item.title}</span>
+                  <div className="home-feed__link home-feed__link--static">
+                    <span className="home-feed__date">{item.date}</span>
+                    <span className="home-feed__title-text">{item.title}</span>
                   </div>
                 ) : (
                   <a
-                    className="info-link"
+                    className="home-feed__link"
                     href={item.href}
                     target={item.external ? '_blank' : undefined}
                     rel={item.external ? 'noopener noreferrer' : undefined}
                   >
-                    <span className="info-item-date">{item.date}</span>
-                    <span className="info-item-title">
+                    <span className="home-feed__date">{item.date}</span>
+                    <span className="home-feed__title-text">
                       {item.pinned && (
-                        <span className="info-item-badge" aria-label="注目" role="img">
+                        <span className="home-feed__badge" aria-label="注目" role="img">
                           ●
                         </span>
                       )}
@@ -1049,9 +1100,11 @@ export function MandalaPage() {
         </div>
       </section>
 
-      <section className="info-section info-section--credit" aria-label="サイトクレジット">
-        <div className="info-section__inner">
-          <p className="site-credit">©︎2008鈴木たかまさ(まるいそら音楽出版)-All Rights Reserved</p>
+      <FooterSocials />
+
+      <section className="home-credit" aria-label="サイトクレジット">
+        <div className="home-credit__inner">
+          <p className="home-credit__text">©︎2008鈴木たかまさ(まるいそら音楽出版)-All Rights Reserved</p>
         </div>
       </section>
     </main>
@@ -1061,13 +1114,15 @@ export function MandalaPage() {
 export default function MandalaHome() {
   return (
     <>
-      <MandalaExperience />
-      <div id="ui-overlay">
-        <header className="site-header">
-          <h1 className="site-title">まるいそら</h1>
-          <p className="site-subtitle">Multi-Artist Portfolio</p>
-        </header>
-      </div>
+      <section id="hero" className="hero-section" aria-label="曼荼羅ナビゲーション">
+        <MandalaExperience />
+        <div id="ui-overlay">
+          <header className="site-header">
+            <h1 className="site-title">まるいそら</h1>
+            <p className="site-subtitle">Multi-Artist Portfolio</p>
+          </header>
+        </div>
+      </section>
       <MandalaPage />
     </>
   );

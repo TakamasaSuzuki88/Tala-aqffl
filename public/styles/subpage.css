@@ -60,7 +60,7 @@ body.page-links {
     --page-background: url('/img/link_back.jpg');
 }
 
-.page-transition {
+.page-crossfade {
     position: fixed;
     inset: 0;
     background: #0A0C12;
@@ -70,7 +70,7 @@ body.page-links {
     z-index: 9999;
 }
 
-.page-transition.active {
+.page-crossfade.active {
     opacity: 1;
     pointer-events: auto;
 }
@@ -815,6 +815,27 @@ body.page-links {
     font-family: 'Noto Serif JP', serif;
     font-size: 1rem;
     letter-spacing: 0.05em;
+}
+
+/* 写真ギャラリー用キャプション（絵画と同じスタイル） */
+.photo-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 16px;
+    background: linear-gradient(180deg, rgba(4, 6, 10, 0) 0%, rgba(4, 6, 10, 0.72) 100%);
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.photo-code {
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.85;
 }
 
 .gallery-load-more {
