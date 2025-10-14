@@ -1,5 +1,3 @@
-type FooterVariant = 'home' | 'subpage' | 'legacy';
-
 const SOCIAL_LINKS = [
   {
     label: 'X (Twitter)',
@@ -41,31 +39,18 @@ const BLOG_LINKS = [
   }
 ] as const;
 
-type FooterSocialsProps = {
-  variant?: FooterVariant;
-  className?: string;
-};
-
-export default function FooterSocials({ variant = 'home', className }: FooterSocialsProps) {
-  const footerClassName = [
-    'site-footer',
-    `site-footer--${variant}`,
-    className
-  ]
-    .filter(Boolean)
-    .join(' ');
-
+export default function FooterSocials() {
   return (
-    <footer className={footerClassName} aria-label="サイトフッター">
-      <div className="site-footer__inner">
-        <div className="site-footer__grid" role="navigation" aria-label="サイトフッターリンク">
-          <section className="site-footer__section">
-            <h3 className="site-footer__heading">SNS</h3>
-            <div className="site-footer__links">
+    <footer className="home-footer" aria-label="サイトフッター">
+      <div className="home-footer__inner">
+        <div className="footer-grid">
+          <div className="footer-section">
+            <h3>SNS</h3>
+            <div className="footer-links">
               {SOCIAL_LINKS.map((link) => (
                 <a 
                   key={link.href} 
-                  className="site-footer__link" 
+                  className="footer-link" 
                   href={link.href} 
                   target="_blank" 
                   rel="noopener noreferrer"
@@ -74,14 +59,14 @@ export default function FooterSocials({ variant = 'home', className }: FooterSoc
                 </a>
               ))}
             </div>
-          </section>
-          <section className="site-footer__section">
-            <h3 className="site-footer__heading">音楽配信</h3>
-            <div className="site-footer__links">
+          </div>
+          <div className="footer-section">
+            <h3>音楽配信</h3>
+            <div className="footer-links">
               {MUSIC_LINKS.map((link) => (
                 <a 
                   key={link.href} 
-                  className="site-footer__link" 
+                  className="footer-link" 
                   href={link.href} 
                   target="_blank" 
                   rel="noopener noreferrer"
@@ -90,14 +75,14 @@ export default function FooterSocials({ variant = 'home', className }: FooterSoc
                 </a>
               ))}
             </div>
-          </section>
-          <section className="site-footer__section">
-            <h3 className="site-footer__heading">ブログ</h3>
-            <div className="site-footer__links">
+          </div>
+          <div className="footer-section">
+            <h3>ブログ</h3>
+            <div className="footer-links">
               {BLOG_LINKS.map((link) => (
                 <a 
                   key={link.href} 
-                  className="site-footer__link" 
+                  className="footer-link" 
                   href={link.href} 
                   target="_blank" 
                   rel="noopener noreferrer"
@@ -106,10 +91,10 @@ export default function FooterSocials({ variant = 'home', className }: FooterSoc
                 </a>
               ))}
             </div>
-          </section>
+          </div>
         </div>
-        <div className="site-footer__copyright">
-          <p className="site-footer__copyright-text">©︎2008鈴木たかまさ(まるいそら音楽出版)-All Rights Reserved</p>
+        <div className="footer-copyright">
+          <p>©︎2008鈴木たかまさ(まるいそら音楽出版)-All Rights Reserved</p>
         </div>
       </div>
     </footer>

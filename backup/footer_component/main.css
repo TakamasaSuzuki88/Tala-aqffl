@@ -710,6 +710,104 @@ body {
     text-decoration: none;
 }
 
+.home-footer {
+    width: 100%;
+    margin-top: 12px;
+    padding: 24px 0 20px;
+    background: var(--home-feed-bg);
+}
+
+.home-footer__inner {
+    width: min(960px, calc(100% - clamp(28px, 9vw, 112px)));
+    margin: 0 auto;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    text-align: left;
+    margin-bottom: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--home-feed-border);
+}
+
+.footer-section h3 {
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: var(--home-feed-gold);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    text-align: left;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-link {
+    color: var(--home-feed-gold-muted);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+}
+
+.footer-link::before {
+    content: '▌';
+    color: var(--home-feed-gold-muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+}
+
+.footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--home-feed-gold);
+    transition: width 0.3s ease;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+    color: var(--home-feed-gold);
+}
+
+.footer-link:hover::after,
+.footer-link:focus-visible::after {
+    width: 100%;
+}
+
+.footer-copyright {
+    text-align: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--home-feed-border);
+}
+
+.footer-copyright p {
+    margin: 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--home-feed-gold-muted);
+    opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
 .home-socials {
     width: min(1080px, calc(100% - clamp(28px, 7vw, 108px)));
     margin: clamp(44px, 9vw, 104px) auto 0;

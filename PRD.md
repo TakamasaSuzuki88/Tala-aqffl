@@ -631,3 +631,48 @@ The Mandala 3D Website represents a unique opportunity to democratize geometric 
 #### 📌 次のステップ
 - ライブビデオカードの動的サムネイルが本番環境でも正しく取得できるか、ネットワーク遮断時のフォールバック表示をあわせて確認。
 - 映像ページの本編カード追加に伴うアクセス解析や再生フローへの影響をモニタリング。
+
+### 2025年10月10日 - ナビゲーション修正・TOPIC/NEWSリンク無効化・レイアウト最適化
+
+#### ✅ 完了済みタスク
+1. **3Dマンダラナビゲーションの修正**
+   - `public/js/mandala-3d.js` の transition overlay 参照を修正し、`page-overlay` へのフォールバック機能を追加。
+   - 全てのサブページへのhrefパスを絶対パス（`/painting/index.html` など）に統一。
+   - `next.config.mjs` に rewrites 設定を追加し、静的HTMLファイルの適切なルーティングを確保。
+2. **TOPIC/NEWSセクションのリンク無効化**
+   - `public/legacy-index.html` のTOPICセクション全6記事のリンクを `<div class="home-feed__link--static">` に変更してクリック不可に。
+   - NEWSセクションの内部リンク7件を無効化、外部リンク（note.com）のみ有効のまま維持。
+   - 「もっと見る」リンクをTOPIC/NEWS両セクションから削除。
+3. **レイアウトスペーシングの最適化**
+   - `.hero-spacer` の高さを 30px → 20px に調整し、TOPICセクションをページ上部に寄せた。
+   - `.home-feed + .home-feed` のマージンを 30px → 0 に変更し、TOPICとNEWSブロックを密着。
+   - `.home-feed__container` のマージンを `0 auto` → `0` に変更して左端寄せを実現。
+   - `.home-footer` のスペーシングを最小化：`margin-top: 12px`、`padding: 24px 0 20px`。
+   - `.footer-grid` の余白を縮小：`margin-bottom: 16px`、`padding-top: 12px`、`gap: 24px`。
+4. **フッターブログリンクの名称統一**
+   - 全ページのフッターで3つのブログリンク名を最終仕様に統一：
+     - 「まるいそらブログ」
+     - 「Sharp Snow ART Houseブログ」
+     - 「旧まるいそら音楽出版アーカイブ」
+5. **フッタータイトルの左寄せ修正**
+   - `public/styles/subpage.css` と `public/styles/main.css` の `.footer-section h3` に `text-align: left` を追加。
+   - `public/music-page.html` のインラインCSSも同様に修正。
+
+#### 📊 変更影響
+- **主要変更ファイル**:
+  - `public/js/mandala-3d.js` - ナビゲーション修正
+  - `public/legacy-index.html` - TOPIC/NEWSリンク無効化
+  - `public/styles/main.css` - レイアウトスペーシング最適化
+  - `next.config.mjs` - 静的HTMLルーティング追加
+  - `components/FooterSocials.tsx` - Reactコンポーネントのフッターリンク名更新
+  - 全HTMLファイル（10ファイル）- フッターブログリンク名の一括更新
+- **確認ポイント**:
+  - トップページMandalaボタンから各サブページへの遷移動作
+  - TOPIC/NEWSセクションの記事がクリック不可（note.comリンクを除く）
+  - セクション間の余白が最小化され、左端寄せになっていること
+  - フッターの余白が詰まり、ブログリンク名が統一されていること
+- **デプロイ**: Production URL で確認可能（ビルド完了後）
+
+#### 📌 次のステップ
+- Vercelデプロイ完了後、本番環境で全ナビゲーションとレイアウトの最終確認。
+- Gitリポジトリの画像ファイル履歴クリーンアップ（12コミット先行問題の解決）。

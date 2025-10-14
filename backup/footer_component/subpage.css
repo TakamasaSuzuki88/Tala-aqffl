@@ -8,21 +8,6 @@
     --accent-gold: #B8860B;
     --card-bg: rgba(255,255,255,0.15);
     --text-ink: #04060A;
-    --footer-border-color: var(--stroke-red);
-    --footer-divider-color: rgba(255, 255, 255, 0.2);
-    --footer-heading-color: var(--text-white);
-    --footer-link-color: rgba(255, 255, 255, 0.85);
-    --footer-link-hover-color: var(--text-white);
-    --footer-link-indicator-color: rgba(255, 255, 255, 0.6);
-    --footer-max-width: 960px;
-    --footer-padding-block: 48px;
-    --footer-padding-inline: 20px;
-    --footer-padding-bottom: 32px;
-    --footer-margin-top: 80px;
-    --footer-grid-gap: 32px;
-    --footer-grid-padding-top: 16px;
-    --footer-copyright-padding-top: 32px;
-    --footer-copyright-color: rgba(255, 255, 255, 0.7);
 }
 
 * {
@@ -225,6 +210,76 @@ body.page-links {
     max-width: 960px;
     margin: 0 auto;
     padding: 40px 20px;
+}
+
+.footer {
+    border-top: 2px solid var(--stroke-red);
+    padding: 48px 20px 0;
+    margin: 80px auto 0;
+    max-width: 960px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 32px;
+    text-align: left;
+    margin-bottom: 48px;
+}
+
+.footer-section h3 {
+    font-weight: bold;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.footer-link::before {
+    content: '▌';
+    color: rgba(255,255,255,0.7);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+}
+
+.footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--text-white);
+    transition: width 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--text-white);
+}
+
+.footer-link:hover::after {
+    width: 100%;
+}
+
+.footer-copyright {
+    text-align: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--stroke-red);
+    opacity: 0.85;
 }
 
 .hero {

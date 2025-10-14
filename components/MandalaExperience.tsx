@@ -915,84 +915,88 @@ type FeedItem = {
   pinned?: boolean;
   pending?: boolean;
   external?: boolean;
+  comingSoon?: boolean;
+  summary?: string;
 };
 
 const TOPICS: FeedItem[] = [
   {
-    date: '2025.02.14',
-    title: '新作アルバム『海霧を越えて』制作背景と楽曲スケッチ公開配信のお知らせ',
-    href: '/music/umikiri-notes',
-    pinned: true
+    date: '2025.10.01',
+    title: 'ニューアルバム作成中',
+    href: '/topics/20251001-new-album'
   },
   {
-    date: '2025.01.28',
-    title: '曼荼羅3D体験会で実施したライブリミックスと来場者QAまとめ',
-    href: '/event/mandala-live-remix'
+    date: '2025.10.10',
+    title: 'その他トピック',
+    href: '/topics/20251010-other-topic'
   },
   {
-    date: '2024.12.21',
-    title: '『群青の余白』シリーズ全作品の解説ノートと資料ダウンロード開始',
-    href: '/painting/notes'
+    date: 'COMING SOON',
+    title: 'Coming soon',
+    comingSoon: true
   },
   {
-    date: '2024.11.03',
-    title: 'アーカイブ映像『まるいそらの記憶』字幕付き再編集版の公開日程',
-    href: '/movie/memories'
-  },
-  {
-    date: '2024.10.10',
-    title: 'コラボレーション詩集『宵の地図』電子版に寄せられた読者レビュー紹介',
-    href: '/words/yoi-review'
-  },
-  {
-    date: '2024.09.18',
-    title: '次期テーマ展示『星屑の経路』は制作中です。続報をお待ちください',
-    pending: true
+    date: 'COMING SOON',
+    title: 'Coming soon',
+    comingSoon: true
   }
 ];
 
 const NEWS: FeedItem[] = [
   {
-    date: '2025.02.05',
-    title: 'ラジオ番組『夜の工房』で鈴木たかまさ特集が放送決定・公開収録参加受付中',
-    href: 'https://note.com/maruisora/n/n9c4',
-    pinned: true,
-    external: true
+    date: '2025.11.23',
+    title: '弾き語り祭出演決定',
+    href: '/news/20251123-live-performance'
+  },
+  {
+    date: '2025.10.10',
+    title: 'その他ニュース',
+    href: '/news/20251010-other-news'
+  },
+  {
+    date: 'COMING SOON',
+    title: 'Coming soon',
+    comingSoon: true
+  },
+  {
+    date: 'COMING SOON',
+    title: 'Coming soon',
+    comingSoon: true
+  }
+];
+
+const OTHERS: FeedItem[] = [
+  {
+    date: '2025.02.14',
+    title: '新作アルバム『海霧を越えて』制作背景と楽曲スケッチ公開配信のお知らせ'
+  },
+  {
+    date: '2025.01.28',
+    title: '曼荼羅3D体験会で実施したライブリミックスと来場者QAまとめ'
   },
   {
     date: '2025.01.20',
-    title: 'オンラインショップでオリジナル和紙ポスターの数量限定再販を開始しました',
-    href: '/money/shop-washi-poster'
+    title: 'オンラインショップでオリジナル和紙ポスターの数量限定再販を開始しました'
   },
   {
     date: '2025.01.07',
-    title: '新春イベント『紅の余韻』ライブ配信アーカイブを期間限定で無料公開',
-    href: '/music/archive-2025'
+    title: '新春イベント『紅の余韻』ライブ配信アーカイブを期間限定で無料公開'
   },
   {
     date: '2024.12.26',
-    title: '年末年始の問い合わせ対応および配送スケジュールについてのお知らせ',
-    href: '/news/year-end-schedule'
+    title: '年末年始の問い合わせ対応および配送スケジュールについてのお知らせ'
   },
   {
-    date: '2024.11.30',
-    title: 'ギャラリー常設展示スペースの改装工事に伴う一時休館のご案内',
-    href: '/news/gallery-renovation'
+    date: '2024.12.21',
+    title: '『群青の余白』シリーズ全作品の解説ノートと資料ダウンロード開始'
+  },
+  {
+    date: '2024.11.03',
+    title: 'アーカイブ映像『まるいそらの記憶』字幕付き再編集版の公開日程'
   },
   {
     date: '2024.10.22',
-    title: 'メディア掲載：雑誌『和の音』11月号で制作工程が紹介されました',
-    pending: true
-  },
-  {
-    date: '2024.09.14',
-    title: 'サーバメンテナンス実施予定（10月2日深夜）と影響範囲について',
-    href: '/news/maintenance-20241002'
-  },
-  {
-    date: '2024.08.30',
-    title: 'オリジナルサウンドトラック次回出荷分は現在調整中です。日程決定後ご案内',
-    pending: true
+    title: 'メディア掲載：雑誌『和の音』11月号で制作工程が紹介されました'
   }
 ];
 
@@ -1008,32 +1012,59 @@ export function MandalaPage() {
           </div>
 
           <ul className="home-feed__list" role="list">
-            {TOPICS.map((item) => (
-              <li
-                key={item.date + item.title}
-                className={[
-                  'home-feed__item',
-                  item.pinned ? 'home-feed__item--pinned' : '',
-                  item.pending ? 'home-feed__item--pending' : ''
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
-                title={item.pending ? '公開予定' : undefined}
-              >
-                <div className="home-feed__link home-feed__link--static">
-                  <span className="home-feed__date">{item.date}</span>
-                  <span className="home-feed__title-text">
-                    {item.pinned && (
-                      <span className="home-feed__badge" aria-label="注目" role="img">
-                        ●
+            {TOPICS.map((item, index) => {
+              const isLink = Boolean(item.href) && !item.comingSoon;
+              const dateLabel = item.comingSoon ? 'coming soon' : item.date;
+              const key = `${item.date}-${item.title}-${index}`;
+
+              return (
+                <li
+                  key={key}
+                  className={[
+                    'home-feed__item',
+                    item.pinned ? 'home-feed__item--pinned' : '',
+                    item.pending ? 'home-feed__item--pending' : '',
+                    item.comingSoon ? 'home-feed__item--static' : ''
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                  title={item.pending ? '公開予定' : undefined}
+                >
+                  {isLink ? (
+                    <a
+                      className="home-feed__link"
+                      href={item.href}
+                      target={item.external ? '_blank' : undefined}
+                      rel={item.external ? 'noopener noreferrer' : undefined}
+                    >
+                      <span className="home-feed__date">{dateLabel}</span>
+                      <span className="home-feed__title-text">
+                        {item.pinned && (
+                          <span className="home-feed__badge" aria-label="注目" role="img">
+                            ●
+                          </span>
+                        )}
+                        {item.title}
                       </span>
-                    )}
-                    {item.title}
-                  </span>
-                </div>
-              </li>
-            ))}
+                    </a>
+                  ) : (
+                    <div className="home-feed__link home-feed__link--static">
+                      <span className="home-feed__date">{dateLabel}</span>
+                      <span className="home-feed__title-text">
+                        {item.pinned && (
+                          <span className="home-feed__badge" aria-label="注目" role="img">
+                            ●
+                          </span>
+                        )}
+                        {item.title}
+                      </span>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
+
         </div>
       </section>
 
@@ -1046,36 +1077,109 @@ export function MandalaPage() {
           </div>
 
           <ul className="home-feed__list" role="list">
-            {NEWS.map((item) => (
+            {NEWS.map((item, index) => {
+              const isLink = Boolean(item.href) && !item.comingSoon;
+              const dateLabel = item.comingSoon ? 'coming soon' : item.date;
+              const key = `${item.date}-${item.title}-${index}`;
+
+              return (
               <li
-                key={item.date + item.title}
+                key={key}
                 className={[
                   'home-feed__item',
                   item.pinned ? 'home-feed__item--pinned' : '',
-                  item.pending ? 'home-feed__item--pending' : ''
+                  item.pending ? 'home-feed__item--pending' : '',
+                  item.comingSoon ? 'home-feed__item--static' : ''
                 ]
                   .filter(Boolean)
                   .join(' ')}
                 title={item.pending ? '公開予定' : undefined}
               >
-                <div className="home-feed__link home-feed__link--static">
-                  <span className="home-feed__date">{item.date}</span>
-                  <span className="home-feed__title-text">
-                    {item.pinned && (
-                      <span className="home-feed__badge" aria-label="注目" role="img">
-                        ●
-                      </span>
-                    )}
-                    {item.title}
-                  </span>
-                </div>
+                {isLink ? (
+                  <a
+                    className="home-feed__link"
+                    href={item.href}
+                    target={item.external ? '_blank' : undefined}
+                    rel={item.external ? 'noopener noreferrer' : undefined}
+                  >
+                    <span className="home-feed__date">{dateLabel}</span>
+                    <span className="home-feed__title-text">
+                      {item.pinned && (
+                        <span className="home-feed__badge" aria-label="注目" role="img">
+                          ●
+                        </span>
+                      )}
+                      {item.title}
+                    </span>
+                  </a>
+                ) : (
+                  <div className="home-feed__link home-feed__link--static">
+                    <span className="home-feed__date">{dateLabel}</span>
+                    <span className="home-feed__title-text">
+                      {item.pinned && (
+                        <span className="home-feed__badge" aria-label="注目" role="img">
+                          ●
+                        </span>
+                      )}
+                      {item.title}
+                    </span>
+                  </div>
+                )}
               </li>
-            ))}
+              );
+            })}
+          </ul>
+
+        </div>
+      </section>
+
+      <section id="others" className="home-feed home-feed--others" aria-labelledby="others-heading">
+        <div className="home-feed__container">
+          <div className="home-feed__heading">
+            <h2 id="others-heading" className="home-feed__title" aria-label="その他">
+              その他
+            </h2>
+          </div>
+          <ul className="home-feed__list" role="list">
+            {OTHERS.map((item, index) => {
+              const isLink = Boolean(item.href);
+              const key = `${item.date}-${item.title}-${index}`;
+
+              return (
+                <li
+                  key={key}
+                  className={[
+                    'home-feed__item',
+                    item.pinned ? 'home-feed__item--pinned' : '',
+                    item.pending ? 'home-feed__item--pending' : ''
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  {isLink ? (
+                    <a
+                      className="home-feed__link"
+                      href={item.href}
+                      target={item.external ? '_blank' : undefined}
+                      rel={item.external ? 'noopener noreferrer' : undefined}
+                    >
+                      <span className="home-feed__date">{item.date}</span>
+                      <span className="home-feed__title-text">{item.title}</span>
+                    </a>
+                  ) : (
+                    <div className="home-feed__link home-feed__link--static">
+                      <span className="home-feed__date">{item.date}</span>
+                      <span className="home-feed__title-text">{item.title}</span>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       </section>
 
-      <FooterSocials />
+      <FooterSocials variant="home" />
 
       <section className="home-credit" aria-label="サイトクレジット">
         <div className="home-credit__inner">
@@ -1093,8 +1197,10 @@ export default function MandalaHome() {
         <MandalaExperience />
         <div id="ui-overlay">
           <header className="site-header">
-            <h1 className="site-title">まるいそら</h1>
-            <p className="site-subtitle">Multi-Artist Portfolio</p>
+            <h1 className="site-title">まるいそら音楽出版</h1>
+            <p className="site-subtitle">Sharp Snow ART House</p>
+            <p className="site-tagline">Multi artist portfolio</p>
+            <p className="site-caption">鈴木たかまさ</p>
           </header>
         </div>
       </section>

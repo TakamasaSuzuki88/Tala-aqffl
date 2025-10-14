@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>音楽 – MUSIC | 鈴木貴雅 (まるいそら)</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/footer.css">
     <style>
         :root {
             --stroke-red: #8A1F1F;
@@ -18,21 +17,6 @@
             --card-bg: rgba(255,255,255,0.15);
             --card-hover: rgba(255,255,255,0.25);
             --mandala-pattern: rgba(184,134,11,0.3);
-            --footer-border-color: var(--stroke-red);
-            --footer-divider-color: rgba(255, 255, 255, 0.2);
-            --footer-heading-color: var(--text-white);
-            --footer-link-color: rgba(255, 255, 255, 0.85);
-            --footer-link-hover-color: var(--text-white);
-            --footer-link-indicator-color: rgba(255, 255, 255, 0.6);
-            --footer-max-width: 960px;
-            --footer-padding-block: 48px;
-            --footer-padding-inline: 20px;
-            --footer-padding-bottom: 32px;
-            --footer-margin-top: 80px;
-            --footer-grid-gap: 32px;
-            --footer-grid-padding-top: 16px;
-            --footer-copyright-padding-top: 32px;
-            --footer-copyright-color: rgba(255, 255, 255, 0.7);
         }
 
         * {
@@ -629,6 +613,75 @@
             opacity: 0.7;
         }
 
+        .footer {
+            border-top: 2px solid var(--stroke-red);
+            padding-top: 48px;
+            margin-top: 80px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .footer-section h3 {
+            font-weight: bold;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-link::before {
+            content: '▌';
+            color: rgba(255,255,255,0.55);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--text-white);
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--text-white);
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid var(--stroke-red);
+            opacity: 0.7;
+        }
+
         @media (min-width: 768px) {
             .featured-card {
                 flex-direction: row;
@@ -926,11 +979,39 @@
             </section>
 
             <!-- Footer -->
-            <footer data-footer="subpage"></footer>
+            <footer class="footer">
+                <div class="footer-grid">
+                    <div class="footer-section">
+                        <h3>SNS</h3>
+                        <div class="footer-links">
+                            <a href="https://x.com/taro8877" target="_blank" class="footer-link">X (Twitter)</a>
+                            <a href="https://www.instagram.com/takamasa_suzukii/" target="_blank" class="footer-link">Instagram</a>
+                            <a href="https://www.facebook.com/takamasa.suzuki.963" target="_blank" class="footer-link">Facebook</a>
+                        </div>
+                    </div>
+                    <div class="footer-section">
+                        <h3>音楽配信</h3>
+                        <div class="footer-links">
+                            <a href="https://www.tunecore.co.jp/artists/Takamasa-Suzuki" target="_blank" class="footer-link">TuneCore Japan</a>
+                            <a href="https://petitlyrics.com/search_lyrics" target="_blank" class="footer-link">PetitLyrics</a>
+                        </div>
+                    </div>
+                    <div class="footer-section">
+                        <h3>ブログ</h3>
+                        <div class="footer-links">
+                            <a href="http://maruisora88.seesaa.net/" target="_blank" class="footer-link">まるいそら音楽出版ブログ</a>
+                            <a href="http://sharpsnowarthouse3.seesaa.net/" target="_blank" class="footer-link">Sharp Snow ART Houseブログ</a>
+                            <a href="http://sharpsnowarthouse.seesaa.net/" target="_blank" class="footer-link">旧まるいそら音楽出版アーカイブ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    <p>©︎2008鈴木たかまさ(まるいそら音楽出版)-All Rights Reserved</p>
+                </div>
+            </footer>
         </div>
     </div>
 
-    <script defer src="/scripts/footer.js"></script>
     <script>
         const transitionOverlay = document.getElementById('page-overlay');
         const navigationMap = {
