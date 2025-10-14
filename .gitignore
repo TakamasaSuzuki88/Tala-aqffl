@@ -42,3 +42,12 @@ next-env.d.ts
 public/img/写真/
 public/img/絵/
 public/mandala/
+
+# All image files - exclude from GitHub, include in Vercel deployment
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.svg
+*.ico
