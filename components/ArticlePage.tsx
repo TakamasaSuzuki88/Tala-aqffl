@@ -37,7 +37,7 @@ export default function ArticlePage({
           {shouldShowBody ? (
             children
           ) : (
-            <p className="article-page__coming-soon">Coming soon.</p>
+            <p className="article-page__coming-soon">coming soon</p>
           )}
         </div>
       </div>

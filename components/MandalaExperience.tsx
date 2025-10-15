@@ -4,6 +4,8 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import FooterSocials from './FooterSocials';
+import type { Post } from '../lib/posts';
+import { archiveExcludingLatest, getAllPosts, LATEST_POST_COUNT, latestNByCategory } from '../lib/posts';
 
 gsap.defaults({ overwrite: 'auto' });
 
@@ -908,99 +910,55 @@ export function MandalaExperience() {
   );
 }
 
-type FeedItem = {
-  date: string;
+const COMING_SOON_LABEL = 'coming soon';
+const OTHERS_DISPLAY_COUNT = 10;
+
+type FeedRow = {
+  key: string;
+  dateLabel: string;
   title: string;
   href?: string;
-  pinned?: boolean;
-  pending?: boolean;
-  external?: boolean;
-  comingSoon?: boolean;
-  summary?: string;
+  isPlaceholder?: boolean;
 };
 
-const TOPICS: FeedItem[] = [
-  {
-    date: '2025.10.01',
-    title: 'ニューアルバム作成中',
-    href: '/topics/20251001-new-album'
-  },
-  {
-    date: '2025.10.10',
-    title: 'その他トピック',
-    href: '/topics/20251010-other-topic'
-  },
-  {
-    date: 'COMING SOON',
-    title: 'Coming soon',
-    comingSoon: true
-  },
-  {
-    date: 'COMING SOON',
-    title: 'Coming soon',
-    comingSoon: true
+const formatDisplayDate = (isoLikeDate: string): string => {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(isoLikeDate);
+  if (!match) {
+    return isoLikeDate;
   }
-];
+  return `${match[1]}.${match[2]}.${match[3]}`;
+};
 
-const NEWS: FeedItem[] = [
-  {
-    date: '2025.11.23',
-    title: '弾き語り祭出演決定',
-    href: '/news/20251123-live-performance'
-  },
-  {
-    date: '2025.10.10',
-    title: 'その他ニュース',
-    href: '/news/20251010-other-news'
-  },
-  {
-    date: 'COMING SOON',
-    title: 'Coming soon',
-    comingSoon: true
-  },
-  {
-    date: 'COMING SOON',
-    title: 'Coming soon',
-    comingSoon: true
-  }
-];
+const buildFeedRows = (posts: Post[], targetCount: number): FeedRow[] => {
+  const rows: FeedRow[] = posts.slice(0, targetCount).map((post) => ({
+    key: post.id,
+    dateLabel: formatDisplayDate(post.date),
+    title: post.title,
+    href: `/posts/${post.slug}`
+  }));
 
-const OTHERS: FeedItem[] = [
-  {
-    date: '2025.02.14',
-    title: '新作アルバム『海霧を越えて』制作背景と楽曲スケッチ公開配信のお知らせ'
-  },
-  {
-    date: '2025.01.28',
-    title: '曼荼羅3D体験会で実施したライブリミックスと来場者QAまとめ'
-  },
-  {
-    date: '2025.01.20',
-    title: 'オンラインショップでオリジナル和紙ポスターの数量限定再販を開始しました'
-  },
-  {
-    date: '2025.01.07',
-    title: '新春イベント『紅の余韻』ライブ配信アーカイブを期間限定で無料公開'
-  },
-  {
-    date: '2024.12.26',
-    title: '年末年始の問い合わせ対応および配送スケジュールについてのお知らせ'
-  },
-  {
-    date: '2024.12.21',
-    title: '『群青の余白』シリーズ全作品の解説ノートと資料ダウンロード開始'
-  },
-  {
-    date: '2024.11.03',
-    title: 'アーカイブ映像『まるいそらの記憶』字幕付き再編集版の公開日程'
-  },
-  {
-    date: '2024.10.22',
-    title: 'メディア掲載：雑誌『和の音』11月号で制作工程が紹介されました'
+  while (rows.length < targetCount) {
+    const placeholderIndex = rows.length;
+    rows.push({
+      key: `placeholder-${targetCount}-${placeholderIndex}`,
+      dateLabel: COMING_SOON_LABEL,
+      title: COMING_SOON_LABEL,
+      isPlaceholder: true
+    });
   }
-];
+
+  return rows;
+};
 
 export function MandalaPage() {
+  const allPosts = getAllPosts();
+  const latestTopics = latestNByCategory(allPosts, 'topic', LATEST_POST_COUNT);
+  const latestNews = latestNByCategory(allPosts, 'news', LATEST_POST_COUNT);
+  const topicRows = buildFeedRows(latestTopics, LATEST_POST_COUNT);
+  const newsRows = buildFeedRows(latestNews, LATEST_POST_COUNT);
+  const archivePosts = archiveExcludingLatest(allPosts);
+  const otherRows = buildFeedRows(archivePosts, OTHERS_DISPLAY_COUNT);
+
   return (
     <main id="content-root" className="page-wrapper" aria-label="トピックとニュース一覧">
       <section id="topics" className="home-feed home-feed--topics" aria-labelledby="topics-heading">
@@ -1012,53 +970,24 @@ export function MandalaPage() {
           </div>
 
           <ul className="home-feed__list" role="list">
-            {TOPICS.map((item, index) => {
-              const isLink = Boolean(item.href) && !item.comingSoon;
-              const dateLabel = item.comingSoon ? 'coming soon' : item.date;
-              const key = `${item.date}-${item.title}-${index}`;
+            {topicRows.map((row) => {
+              const isPlaceholder = row.isPlaceholder || !row.href;
+              const itemClassName = ['home-feed__item', isPlaceholder ? 'home-feed__item--static' : '']
+                .filter(Boolean)
+                .join(' ');
 
               return (
-                <li
-                  key={key}
-                  className={[
-                    'home-feed__item',
-                    item.pinned ? 'home-feed__item--pinned' : '',
-                    item.pending ? 'home-feed__item--pending' : '',
-                    item.comingSoon ? 'home-feed__item--static' : ''
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
-                  title={item.pending ? '公開予定' : undefined}
-                >
-                  {isLink ? (
-                    <a
-                      className="home-feed__link"
-                      href={item.href}
-                      target={item.external ? '_blank' : undefined}
-                      rel={item.external ? 'noopener noreferrer' : undefined}
-                    >
-                      <span className="home-feed__date">{dateLabel}</span>
-                      <span className="home-feed__title-text">
-                        {item.pinned && (
-                          <span className="home-feed__badge" aria-label="注目" role="img">
-                            ●
-                          </span>
-                        )}
-                        {item.title}
-                      </span>
-                    </a>
-                  ) : (
+                <li key={row.key} className={itemClassName}>
+                  {isPlaceholder ? (
                     <div className="home-feed__link home-feed__link--static">
-                      <span className="home-feed__date">{dateLabel}</span>
-                      <span className="home-feed__title-text">
-                        {item.pinned && (
-                          <span className="home-feed__badge" aria-label="注目" role="img">
-                            ●
-                          </span>
-                        )}
-                        {item.title}
-                      </span>
+                      <span className="home-feed__date">{row.dateLabel}</span>
+                      <span className="home-feed__title-text">{row.title}</span>
                     </div>
+                  ) : (
+                    <a className="home-feed__link" href={row.href}>
+                      <span className="home-feed__date">{row.dateLabel}</span>
+                      <span className="home-feed__title-text">{row.title}</span>
+                    </a>
                   )}
                 </li>
               );
@@ -1077,55 +1006,26 @@ export function MandalaPage() {
           </div>
 
           <ul className="home-feed__list" role="list">
-            {NEWS.map((item, index) => {
-              const isLink = Boolean(item.href) && !item.comingSoon;
-              const dateLabel = item.comingSoon ? 'coming soon' : item.date;
-              const key = `${item.date}-${item.title}-${index}`;
+            {newsRows.map((row) => {
+              const isPlaceholder = row.isPlaceholder || !row.href;
+              const itemClassName = ['home-feed__item', isPlaceholder ? 'home-feed__item--static' : '']
+                .filter(Boolean)
+                .join(' ');
 
               return (
-              <li
-                key={key}
-                className={[
-                  'home-feed__item',
-                  item.pinned ? 'home-feed__item--pinned' : '',
-                  item.pending ? 'home-feed__item--pending' : '',
-                  item.comingSoon ? 'home-feed__item--static' : ''
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
-                title={item.pending ? '公開予定' : undefined}
-              >
-                {isLink ? (
-                  <a
-                    className="home-feed__link"
-                    href={item.href}
-                    target={item.external ? '_blank' : undefined}
-                    rel={item.external ? 'noopener noreferrer' : undefined}
-                  >
-                    <span className="home-feed__date">{dateLabel}</span>
-                    <span className="home-feed__title-text">
-                      {item.pinned && (
-                        <span className="home-feed__badge" aria-label="注目" role="img">
-                          ●
-                        </span>
-                      )}
-                      {item.title}
-                    </span>
-                  </a>
-                ) : (
-                  <div className="home-feed__link home-feed__link--static">
-                    <span className="home-feed__date">{dateLabel}</span>
-                    <span className="home-feed__title-text">
-                      {item.pinned && (
-                        <span className="home-feed__badge" aria-label="注目" role="img">
-                          ●
-                        </span>
-                      )}
-                      {item.title}
-                    </span>
-                  </div>
-                )}
-              </li>
+                <li key={row.key} className={itemClassName}>
+                  {isPlaceholder ? (
+                    <div className="home-feed__link home-feed__link--static">
+                      <span className="home-feed__date">{row.dateLabel}</span>
+                      <span className="home-feed__title-text">{row.title}</span>
+                    </div>
+                  ) : (
+                    <a className="home-feed__link" href={row.href}>
+                      <span className="home-feed__date">{row.dateLabel}</span>
+                      <span className="home-feed__title-text">{row.title}</span>
+                    </a>
+                  )}
+                </li>
               );
             })}
           </ul>
@@ -1141,41 +1041,32 @@ export function MandalaPage() {
             </h2>
           </div>
           <ul className="home-feed__list" role="list">
-            {OTHERS.map((item, index) => {
-              const isLink = Boolean(item.href);
-              const key = `${item.date}-${item.title}-${index}`;
+            {otherRows.map((row) => {
+              const isPlaceholder = row.isPlaceholder || !row.href;
+              const itemClassName = ['home-feed__item', isPlaceholder ? 'home-feed__item--static' : '']
+                .filter(Boolean)
+                .join(' ');
 
               return (
-                <li
-                  key={key}
-                  className={[
-                    'home-feed__item',
-                    item.pinned ? 'home-feed__item--pinned' : '',
-                    item.pending ? 'home-feed__item--pending' : ''
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
-                >
-                  {isLink ? (
-                    <a
-                      className="home-feed__link"
-                      href={item.href}
-                      target={item.external ? '_blank' : undefined}
-                      rel={item.external ? 'noopener noreferrer' : undefined}
-                    >
-                      <span className="home-feed__date">{item.date}</span>
-                      <span className="home-feed__title-text">{item.title}</span>
-                    </a>
-                  ) : (
+                <li key={row.key} className={itemClassName}>
+                  {isPlaceholder ? (
                     <div className="home-feed__link home-feed__link--static">
-                      <span className="home-feed__date">{item.date}</span>
-                      <span className="home-feed__title-text">{item.title}</span>
+                      <span className="home-feed__date">{row.dateLabel}</span>
+                      <span className="home-feed__title-text">{row.title}</span>
                     </div>
+                  ) : (
+                    <a className="home-feed__link" href={row.href}>
+                      <span className="home-feed__date">{row.dateLabel}</span>
+                      <span className="home-feed__title-text">{row.title}</span>
+                    </a>
                   )}
                 </li>
               );
             })}
           </ul>
+          <a className="home-feed__more" href="/archive">
+            すべての過去記事を見る
+          </a>
         </div>
       </section>
 
