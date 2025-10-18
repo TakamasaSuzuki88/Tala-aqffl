@@ -1046,15 +1046,11 @@ body {
         letter-spacing: 0.18em;
     }
 }
-body {
-  body {
-  body {
-  background-image: url('/img/kotoba_back.jpg'); /* ← ここは前に使ってた古文書画像に戻す */
+
+  background-image: url('/img/kotoba_back.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-color: #fdf5e6;
   background-blend-mode: multiply;
-}
-
 }
