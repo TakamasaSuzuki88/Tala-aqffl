@@ -676,3 +676,33 @@ The Mandala 3D Website represents a unique opportunity to democratize geometric 
 #### 📌 次のステップ
 - Vercelデプロイ完了後、本番環境で全ナビゲーションとレイアウトの最終確認。
 - Gitリポジトリの画像ファイル履歴クリーンアップ（12コミット先行問題の解決）。
+
+### 2025年10月12日 - トップヒーロー刷新・トピック体系更新・フッター共通化
+
+#### ✅ 完了済みタスク
+1. **トップヒーローブランド表記のアップデート**
+   - `components/MandalaExperience.tsx` のヒーローヘッダーを「まるいそら音楽出版／Sharp Snow ART House／Multi artist portfolio／鈴木たかまさ」の4行構成へ変更。
+   - `public/styles/main.css` で各行のタイポグラフィとブレークポイント時のマージンを再調整し、ヒーロー上部の行間を指定どおり配置。
+2. **TOPIC/NEWSセクションの再編と詳細ページ追加**
+   - トップページの `TOPICS`/`NEWS` 配列を最新オーダーに差し替え、指定2件をリンク化、残りは `Coming soon` プレースホルダーで明示。
+   - `components/MandalaExperience.tsx` に「その他」セクションを新設し、過去記事をまとめて表示。
+   - `components/ArticlePage.tsx` を新規実装し、`app/topics/20251001-new-album/` や `app/news/20251123-live-performance/` など4本の詳細ページを作成（coming soon ページを含む）。
+3. **静的トップ（legacy）との同期**
+   - `public/legacy-index.html` のトピック/ニュース配列を最新版へ差し替え、「Coming soon」表示と「その他」ブロックを追加。
+   - レガシーページでも同じモジュール構成になるよう、余分な静的リンクを撤去。
+4. **フッターのコンポーネント化とテーマ変数化**
+   - `components/FooterSocials.tsx` を `site-footer__*` クラス体系へ刷新し、`variant="home"` 指定でヒーロー下に適用。
+   - 静的HTML 全ページに `data-footer` プレースホルダーを挿入し、`public/scripts/footer.js` で共通マークアップを自動注入。
+   - `public/styles/footer.css` を新設し、ホーム／サブページ／レガシー用のカスタムプロパティで色味を切り替え。境界線はコンテンツ幅に収まるよう `border-top` を調整。
+
+#### 📊 変更影響
+- **主要変更ファイル**:
+  - `components/MandalaExperience.tsx`, `public/styles/main.css` - ヒーローテキスト＆フィード再構成
+  - `components/ArticlePage.tsx`, `app/topics/*`, `app/news/*` - 詳細ページ追加
+  - `public/legacy-index.html`, `public/styles/footer.css`, `public/scripts/footer.js` - レガシー対応とフッター共通化
+  - `public/*/index.html`, `public/music-page.html` - フッター呼び出しを `data-footer` 化
+- **確認ポイント**:
+  - トップページのトピック・ニュース各リンクが正しく遷移し、Coming soon 行にホバー反応が出ないこと
+  - 「その他」一覧の時系列と見出し整列
+  - すべてのサブページでフッターの色味・境界線がコンテンツ幅内に収まり、リンク先が正しく開くこと
+- **デプロイ**: Vercel 開発／本番環境 both
