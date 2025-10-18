@@ -1048,8 +1048,13 @@ body {
 }
 body {
   body {
-  background-image: url('/img/films_back.jpg');
-  background-size: 1200px auto;
-  background-repeat: repeat;
-  background-position: top left;
+  body {
+  background-image: url('/img/kotoba_back.jpg'); /* ← ここは前に使ってた古文書画像に戻す */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #fdf5e6;
+  background-blend-mode: multiply;
+}
+
 }
