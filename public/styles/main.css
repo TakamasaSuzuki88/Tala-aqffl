@@ -1047,11 +1047,9 @@ body {
     }
 }
 body {
-  background-image: url('/img/kotoba_back.jpg'); /* ← 実際の背景画像のファイル名に合わせて変更 */
-  background-size: cover;        /* 画面全体に広げる */
-  background-repeat: no-repeat;  /* 繰り返しなし */
-  background-position: center;   /* 中央に配置 */
-  background-attachment: fixed;  /* スクロールしても固定 */
-  background-color: #fdf5e6;     /* 古文書風の下地色 */
-  background-blend-mode: multiply; /* 色を馴染ませる効果 */
+  body {
+  background-image: url('/img/films_back.jpg');
+  background-size: 1200px auto;
+  background-repeat: repeat;
+  background-position: top left;
 }
